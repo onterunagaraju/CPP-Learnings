@@ -1,0 +1,3 @@
+C:\Users\Nagaraju_Onteru\Desktop\Learning\TestingSamplesln\TestingSample\x64\Debug\TestingSample.vcxproj.CopyComplete
+C:\Users\Nagaraju_Onteru\Desktop\Learning\TestingSamplesln\x64\Debug\TestingSample.exe.lastcodeanalysissucceeded
+C:\Users\Nagaraju_Onteru\Desktop\Learning\TestingSamplesln\TestingSample\x64\Debug\NativeCodeAnalysis.read.1.tlog

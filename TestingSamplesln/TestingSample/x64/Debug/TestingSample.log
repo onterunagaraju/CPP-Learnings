@@ -1,0 +1,4 @@
+﻿  pch.cpp
+  test.cpp
+  TestingSample.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\Learning\TestingSamplesln\x64\Debug\TestingSample.exe
+C:\Users\Nagaraju_Onteru\Desktop\Learning\TestingSamplesln\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5\build\native\include\gtest\internal\gtest-port.h(1804): warning C26495: Variable 'testing::internal::Mutex::critical_section_' is uninitialized. Always initialize a member variable (type.6).
