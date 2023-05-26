@@ -1,0 +1,96 @@
+
+#include<string>
+#include <iostream>
+
+
+class A {
+    int x;
+public:
+    A() {
+
+    }
+    A(int _x) {
+        x = _x;
+        std::cout << " constructor called " << std::endl;
+    }
+    operator std::string()
+    {
+        std::cout << "Conversion Operator" << std::endl;
+        return std::to_string(x);
+    }
+    virtual void print() {
+
+    }
+};
+
+class B :public A {
+public:
+    B() {
+
+    }
+    void print() {
+        std::cout << "In calss B, print fun \n";
+    }
+};
+
+int main()
+{
+    A aobj(5);
+    aobj = 10;
+    std::string s = aobj;
+    std::cout << "string= " << s << std::endl;
+    aobj = static_cast<A>(50);
+
+    // conversions involving inheritance: is-a
+    B bobj;
+    A* aptr = (A*)(&bobj); // Allowed
+    //A* aptr1 = static_cast<A*>(&bobj); // error: A is inaccessible base of B
+
+
+
+    int a = 'a';
+    char c = 99;
+    float f = 12.5;
+    double d = a;
+    double d1 = 9.5;
+    int b = d1;
+    bool bol = b;
+    int a1 = bol;
+    std::cout << a << " " << c << " " << f << " " << d << std::endl;
+    std::cout << "Double " << d1 << " int " << b << " Bool " << bol << " int " << a1 << std::endl;
+    int n1 = 2;
+    int n2 = 3;
+    int f1 = 2.0;
+    int n3 = f1 + n2;
+    std::cout << n3 << std::endl;
+    float f2 = float(n2) / n1;
+    std::cout << f2 << std::endl;
+
+    // Implicit conversions between types
+    float f3 = 10.5;
+    int i;
+    i = f3;
+    std::cout << i << std::endl;
+    i = static_cast<int>(f3);
+    std::cout << i << std::endl;
+
+    //prevent dangarous cast, more Restrictive
+    char c1;
+    A a_obj(25);
+    std::shared_ptr<A> u_ptr = std::make_shared<B>();
+    /*std::shared_ptr<B>*/ B* f_ptr = dynamic_cast<B*>(u_ptr.get());
+    //std::cout << "shared pointer "<< f_ptr->print() << std::endl;
+    f_ptr->print();
+    int* p1 = (int*)(&c1);
+    //*p1 = 3; // pass at compile time, fail at run time
+    //std::cout << *p1 << std::endl;
+    //int* p2 = static_cast<int*>(&c1); // compile time error
+
+
+    //converting to void* or from void*
+    int i1 = 10;
+    void* v = static_cast<void*>(&i1);
+    char* p = static_cast<char*>(v);
+    std::cout << "char pointer " << *p << sizeof(p);
+}
+

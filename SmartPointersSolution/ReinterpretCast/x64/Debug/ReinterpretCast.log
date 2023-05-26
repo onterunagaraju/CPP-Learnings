@@ -1,0 +1,5 @@
+﻿  ReinterpretCast.cpp
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ReinterpretCast\ReinterpretCast.cpp(42,39): warning C4312: 'reinterpret_cast': conversion from 'int' to 'int *' of greater size
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ReinterpretCast\ReinterpretCast.cpp(44,42): warning C4311: 'reinterpret_cast': pointer truncation from 'int *' to 'int'
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ReinterpretCast\ReinterpretCast.cpp(44,42): warning C4302: 'reinterpret_cast': truncation from 'int *' to 'int'
+  ReinterpretCast.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\x64\Debug\ReinterpretCast.exe

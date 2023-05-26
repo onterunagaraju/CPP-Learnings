@@ -1,0 +1,5 @@
+﻿  TypeConversion.cpp
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\TypeConversion\TypeConversion.cpp(56,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\TypeConversion\TypeConversion.cpp(63,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\TypeConversion\TypeConversion.cpp(72,9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  TypeConversion.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\x64\Debug\TypeConversion.exe

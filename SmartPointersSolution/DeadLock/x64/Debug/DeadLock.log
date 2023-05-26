@@ -1,0 +1,3 @@
+﻿  DeadLock.cpp
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\DeadLock\DeadLock.cpp(69,9): warning C4101: 'val': unreferenced local variable
+  DeadLock.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\x64\Debug\DeadLock.exe

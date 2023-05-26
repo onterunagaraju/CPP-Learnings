@@ -1,0 +1,6 @@
+﻿  ExceptionHandling.cpp
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ExceptionHandling\ExceptionHandling.cpp(43,23): warning C4101: 'd': unreferenced local variable
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ExceptionHandling\ExceptionHandling.cpp(54,19): warning C4101: 'd': unreferenced local variable
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ExceptionHandling\ExceptionHandling.cpp(59,27): warning C4101: 'd': unreferenced local variable
+C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\ExceptionHandling\ExceptionHandling.cpp(62,24): warning C4101: 'd': unreferenced local variable
+  ExceptionHandling.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\Learning\SmartPointersSolution\x64\Debug\ExceptionHandling.exe
