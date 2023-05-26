@@ -1,0 +1,6 @@
+﻿  VisitorPattern.cpp
+C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\VisitorPattern\VisitorPattern.cpp(6,25): error C2061: syntax error: identifier 'IVisitor'
+C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\VisitorPattern\VisitorPattern.cpp(23,17): error C2061: syntax error: identifier 'IVisitor'
+C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\VisitorPattern\VisitorPattern.cpp(26,9): error C2065: 'visitor': undeclared identifier
+C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\VisitorPattern\VisitorPattern.cpp(53,28): error C2660: 'MyClass::Accept': function does not take 1 arguments
+C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\VisitorPattern\VisitorPattern.cpp(23,10): message : see declaration of 'MyClass::Accept'

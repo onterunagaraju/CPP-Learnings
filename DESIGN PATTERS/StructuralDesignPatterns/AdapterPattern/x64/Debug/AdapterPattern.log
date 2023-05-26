@@ -1,0 +1,3 @@
+﻿  AdapterPattern.cpp
+C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\AdapterPattern\AdapterPattern.cpp(38,28): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  AdapterPattern.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\C++\DESIGN PATTERS\StructuralDesignPatterns\x64\Debug\AdapterPattern.exe
