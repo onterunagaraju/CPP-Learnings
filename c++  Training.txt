@@ -1,0 +1,1081 @@
+14 DAYS training:
+--------------------
+
+DAY 1:  Difference b/w class & struct, Abstraction, Inheritance, Encapsulation, 
+
+In C++, a structure works the same way as a class, except for just two small differences. The most important of them is hiding implementation details.
+A structure will by default not hide its implementation details from whoever uses it in code, while a class by default hides all its implementation 
+details and will therefore by default prevent the programmer from accessing them. The following table summarizes all of the fundamental differences.
+
+
+Class
+
+=> Members of a class are private by default.	
+=> Member classes/structures of a class are private by default.	
+=> It is declared using the class keyword.	
+=> It is normally used for data abstraction and further inheritance.	
+
+Structure
+
+=> Members of a structure are public by default. 
+=> Member classes/structures of a structure are public by default.
+=> It is declared using the struct keyword.
+=> It is normally used for the grouping of data
+
+1) Members of a class are private by default and members of a structure are public by default. 
+2) A class is declared using the class keyword, and a structure is declared using the struct keyword.
+3) Inheritance is possible with classes, and with structures.
+
+
+
+https://www.geeksforgeeks.org/inheritance-in-c/
+
+=====================================================================================================================================================================
+DAY 2: POLYMORPHISM:
+
+https://www.geeksforgeeks.org/cpp-polymorphism/
+
+
+// function Overloading 
+// can be acheived by ,changing the number of parameters and data types of parameters
+#include <iostream>
+
+using namespace std;
+class A{
+    public:
+    void sum(int a, int b){
+        cout << "In int,int  and sum: " << a+b << endl; 
+    }
+    /*int sum(int a, int b){
+        cout << "In int,int with return  and sum: " << a+b << endl;
+        return a+b;
+    }*/
+    void sum(int a ,int b, int c){
+        cout << "In int,int,int  and sum: " << a+b+c << endl; 
+    }
+    
+    void sum(float a , float b){
+        cout << "In float,float  and sum: " << a+b << endl; 
+    }
+    void sum(double a, double b){
+        cout << "In double,double  and sum: " << a+b << endl; 
+    }
+    void sum(float a, double b){
+        cout << "In float,double  and sum: " << a+b << endl; 
+    }
+    void sum(double a, float b){
+        cout << "In double,float  and sum: " << a+b << endl; 
+    }
+    
+};
+int main()
+{
+    A a;
+    a.sum(2,3);
+    a.sum(2,3,4);
+    a.sum(2.4,2.6);
+    a.sum(2.4f,2.6f);
+
+    return 0;
+}
+
+
+
+
+OPERATOR OVERLOADING:
+
+// Operator Overloading
+
+#include<iostream>
+
+using namespace std;
+
+class Complex{
+    public:
+      int real;
+      int imaginary;
+      Complex(){}
+      Complex(int _real, int _imaginary){
+          real = _real;
+          imaginary = _imaginary;
+      }
+      
+      void display(){
+          cout << "real: " << real << " imaginary: " << imaginary << endl;
+      }
+      
+      // Operator Overloading
+      Complex operator + (Complex obj){
+          Complex temp;
+          temp.real = real + obj.real;
+          temp.imaginary = imaginary + obj.imaginary;
+          return temp;
+      }
+};
+
+int main(){
+    Complex obj1(2,3);
+    Complex obj2(4,5);
+    obj1.display();
+    obj2.display();
+    Complex obj3 = obj1 + obj2; //obj1.+(obj2)
+    obj3.display();
+    return 0;
+}
+
+
+
+Operators which cannot be overloaded:
+
+?: (conditional)
+. (member selection)
+.* (member selection with pointer-to-member)
+:: (scope resolution)
+sizeof (object size information)
+typeid (object type information)
+static_cast (casting operator)
+const_cast (casting operator)
+reinterpret_cast (casting operator)
+dynamic_cast (casting operator)
+
+Why can’t the above-stated operators be overloaded?:
+1. sizeof – 
+	This returns the size of the object or datatype entered as the operand. This is evaluated by the compiler and cannot be evaluated during runtime. 
+The proper incrementing of a pointer in an array of objects relies on the sizeof operator implicitly. Altering its meaning using overloading would cause 
+a fundamental part of the language to collapse.
+
+2. typeid: 
+	This provides a CPP program with the ability to recover the actually derived type of the object referred to by a pointer or reference. For this operator,
+ the whole point is to uniquely identify a type. If we want to make a user-defined type ‘look’ like another type, polymorphism can be used but the meaning of the 
+typeid operator must remain unaltered, or else serious issues could arise.
+
+3. Scope resolution (::):
+	 This helps identify and specify the context to which an identifier refers by specifying a namespace. It is completely evaluated at runtime and 
+works on names rather than values. The operands of scope resolution are note expressions with data types and CPP has no syntax for capturing them if it were overloaded. 
+So it is syntactically impossible to overload this operator.
+
+4. Class member access operators (.(dot), .* (pointer to member operator)): 
+	Besides, these operators also work on names and not values and there is no provision (syntactically) to overload them.
+5. Ternary or conditional (?:): 
+	The ternary or conditional operator is a shorthand representation of an if-else statement. In the operator, the true/false expressions 
+are only evaluated on the basis of the truth value of the conditional expression. 
+
+conditional statement ? expression1 (if statement is TRUE) : expression2 (else)
+
+A function overloading the ternary operator for a class say ABC using the definition
+ABC operator ?: (bool condition, ABC trueExpr, ABC falseExpr);
+would not be able to guarantee that only one of the expressions was evaluated. Thus, the ternary operator cannot be overloaded.
+
+
+Overloadable operators
+
+Arithmetic operators
++ (addition)
+- (subtraction)
+* (multiplication)
+/ (division)
+% (modulus)
+
+
+Bitwise operators
+^ (XOR)
+| (OR)
+& (AND)
+~ (complement)
+<< (shift left, insertion to stream)
+>> (shift right, extraction from stream)
+
+
+Assignment operator =
+
+Relational operators
+== (equality)
+!= (inequality)
+> (greater-than)
+< (less-than)
+>= (greater-than-or-equal-to)
+<= (less-than-or-equal-to)
+
+
+Logical operators
+! (NOT)
+&& (AND)
+|| (OR)
+
+
+Compound assignment operators
++= (addition-assignment)
+-= (subtraction-assignment)
+*= (multiplication-assignment)
+/= (division-assignment)
+%= (modulus-assignment)
+&= (AND-assignment)
+|= (OR-assignment)
+^= (XOR-assignment)
+<<= (shift-left-assignment)
+>>= (shift-right-assignment)
+
+
+
+
+
+Increment and decrement operators
+++ (increment)
+-- (decrement)
+
+
+
+
+Subscript operator []
+
+Function call operator ()
+
+Address of, Reference, and Pointer operators
+->*
+
+->
+
+
+Comma operator ,
+
+Memory management operators:
+new (allocate memory for object)
+new[ ] (allocate memory for array)
+delete (deallocate memory for object)
+delete[ ] (deallocate memory for array)
+
+Important points about operator overloading :
+1) For operator overloading to work, at least one of the operands must be a user-defined class object.
+
+2) Assignment Operator: Compiler automatically creates a default assignment operator with every class. The default assignment operator does assign all members 
+   of the right side to the left side and works fine in most cases (this behavior is the same as the copy constructor). 
+3) Conversion Operator: We can also write conversion operators that can be used to convert one type to another type. 
+
+// C++ Program to Demonstrate the working
+// of conversion operator
+#include <iostream>
+using namespace std;
+class Fraction {
+private:
+    int num, den;
+  
+public:
+    Fraction(int n, int d)
+    {
+        num = n;
+        den = d;
+    }
+  
+    // Conversion operator: return float value of fraction
+    operator float() const
+    {
+        return float(num) / float(den);
+    }
+};
+  
+int main()
+{
+    Fraction f(2, 5);
+    float val = f;
+    cout << val << '\n';
+    return 0;
+}
+
+Overloaded conversion operators must be a member method. Other operators can either be the member method or the global method.
+4) Any constructor that can be called with a single argument works as a conversion constructor, which means it can also be used for implicit conversion to the class being constructed. 
+// C++ program to demonstrate can also be used for implicit
+// conversion to the class being constructed
+#include <iostream>
+using namespace std;
+  
+class Point {
+private:
+    int x, y;
+  
+public:
+    Point(int i = 0, int j = 0)
+    {
+        x = i;
+        y = j;
+    }
+    void print()
+    {
+        cout << "x = " << x << ", y = " << y << '\n';
+    }
+};
+  
+int main()
+{
+    Point t(20, 20);
+    t.print();
+    t = 30; // Member x of t becomes 30
+    t.print();
+    return 0;
+}
+
+k
+
+
+OVERRIDING:
+
+// function overriding
+
+#include<iostream>
+
+using namespace std;
+
+class Base{
+    public:
+        virtual void print(){
+            cout << "In Base class print function "<< endl;
+        }
+        
+        void display(){
+            cout << "In Base class display function " << endl;
+        }
+};
+
+class Derived: public Base{
+    public:
+        void print(){
+            cout << "In Derived class print function " << endl;
+        }
+        
+        void display(){
+            cout << "In Derived class display function " << endl;
+        }
+};
+
+int main(){
+    Base b;
+    b.print();
+    b.display();
+    
+    Derived d;
+    d.print();
+    d.display();
+    
+    Base* obj = new Derived();
+    obj->print();
+    obj -> display();
+    return 0;
+}
+===========================================================================================================================================
+
+// upcasting, obj slicing, downcasting(dynamic_cast):
+
+
+#include <iostream>
+
+using namespace std;
+
+class A{
+    public:
+        int a,b;
+        A(int _a,int _b){
+            a = _a;
+            b = _b;
+        }
+        
+        virtual void display(){
+            cout << "In A class, a is: " << a << " b is: "<< b << endl;
+        }
+        void print(){
+            cout << "In A clas print fun "<< endl;
+        }
+};
+class B: public A{
+    public:
+    int c;
+    B(int _a,int _b,int _c) : A(_a,_b){
+        c = _c;
+    }
+    
+    void display(){
+        cout << "In B class, a is "<< a << " b is: "<<b << " C is " << c << endl;
+    }
+    void print1(){
+        cout << "In B class Print1 fun"<< endl;
+    }
+};
+
+
+class C: public A{
+   public:
+    C(int _a,int _b):A(_a,_b){
+        
+    }
+};
+
+
+int main(){
+    A a(10,20);
+    a.display();
+    B b(30,40,50);
+    b.display();
+    b.print1();
+    // upcasting
+    A* obj = new B(50,60,70);
+    obj->display();
+    A &a1 = a;
+    a1.display();
+    //&a1 = b; //gives error
+    A *a2;
+    a2 = &a;
+    a2->display();
+    a2 = obj;
+    a2->display();
+    a2 = &b;
+    b.print();
+    b.print1();
+
+    // object slicing
+    a = b;
+    a.display();
+    a.print();
+    
+    // b = a;   //gives error    
+
+    //a.print1();
+    /*a1 = b;
+    a1.display();*/
+    
+    
+    // Down casting
+    //B obj_b = obj;  // Gives error
+    
+    B* obj_b = dynamic_cast<B*>(obj);
+    obj_b->display();
+    obj_b->print();
+    obj_b->print1();
+    
+    A* obj1 = new C(1,2);
+    
+    B* b_obj = dynamic_cast<B*>(obj1);
+    
+    //B* b_obj1 = dynamic_cast<B*>(obj);
+    if(!b_obj){
+        cout<< " casting not done"<< endl;
+    }
+    else{
+        cout << " casting done "<< endl;
+    }
+    
+    return 0;
+}
+
+===================================================================================================================================================
+Friend function:
+
+#include<iostream>
+using namespace std;
+
+class A{
+    private:
+        int x;
+  public:
+  A(int a){
+      x=a;
+  }
+    void display(){
+        cout << " A cls display ";
+    }
+    friend void frdfun(A &a);
+};
+
+
+void frdfun(A &a){
+    cout<< " A func x value " << a.x;
+}
+
+
+int main(){
+    A obj(2);
+    frdfun(obj);
+}
+==========================================================================================================================================================
+
+Friend Class:
+
+#include<iostream>
+using namespace std;
+
+class A{
+    friend class B;
+    private:
+        int x;
+  public:
+  A(int a){
+      x=a;
+  }
+    void display(){
+        cout << " A cls display ";
+    }
+    
+};
+
+class B{
+    public:
+    void showData(A a){
+        cout<< " A data in cls B is "<< a.x;
+    }
+};
+
+int main(){
+    A obj(2);
+    B b;
+    b.showData(obj);
+}
+
+==============================================================================================================================================================
+// templates
+// function template;
+
+
+#include<iostream>
+
+using namespace std;
+
+/*void fun(int a){
+    cout<< " a value is: " << a << endl;
+}
+
+void fun(char a){
+    cout<< " a value is: " << a << endl;
+}
+
+void fun(float a){
+    cout<< " a value is: " << a << endl;
+}
+
+void fun(double a){
+    cout<< " a value is: " << a << endl;
+}*/
+
+template<typename T>
+void fun(T value){
+    cout<< " value is: " << value << endl;
+}
+
+
+int main(){
+    fun<int>(2);
+    fun<char>('c');
+    fun<float>(4.8f);
+    fun<double>(4.5);
+    return 0;
+}
+
+===========================================================================================================================================================
+
+// class templates
+
+// templates
+
+#include<iostream>
+
+using namespace std;
+
+template<typename T,int N>
+class Array{
+    T arr[N];
+    public:
+        
+        int getSize(){
+            return N;
+        }
+};
+
+int main(){
+    
+    Array<int,5> a;
+    cout << "Int array size is " << a.getSize() << endl;
+    
+    Array<double,10> a1;
+    cout << "double array size is " << a1.getSize() << endl;
+    
+    return 0;
+}
+
+===========================================================================================================================================================
+// Class template specialization
+// specailaze template for particular data.
+// templates
+
+#include<iostream>
+
+using namespace std;
+
+template<typename T>
+class Test{
+    
+    public:
+        Test(T x){
+            cout << x << " is not a char" << endl;
+        }
+};
+
+template<>
+class Test<char>{
+  public:
+    Test(char x){
+        cout << x << " is a char and in specialised template for char data" << endl;
+    }
+};
+
+int main(){
+    
+   Test<int> t1(2);
+   Test<double> t2(3.9);
+   Test<char> t3('c');
+    
+    
+    return 0;
+}
+
+
+
+////////// Function template specialization:
+
+// templates
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+template<typename T>
+T addAll(vector<T> &v){
+    T res = 0;
+    for(auto ele:v){
+        res += ele;
+    }
+    return res;
+}
+
+template<>
+string addAll(vector<string> &v){
+    string res = "Hello ";
+    for(auto ele:v){
+        res += ele+" ";
+    }
+    return res;
+}
+
+
+int main(){
+    
+    vector<int> v1 = {1,2,3,4,5,6};
+    vector<double> v2 = {1.0,2.0,3.0,4.0,5.0,6.1};
+    cout << addAll(v1)<< endl;
+    cout << addAll(v2) << endl;
+    
+    vector<string> v3 = {"Naga","Raju"};
+    cout << addAll(v3);
+    
+    return 0;
+}
+
+========================================================================================================================================================
+TEMPLATE META PROGRAMS:
+------------------------
+using templates, we can write programs that do computation at compile time, such programs are called template metaprograms.
+
+
+#include <iostream>
+using namespace std;
+
+template<int n> 
+struct funStruct
+{
+	enum { val = 2*funStruct<n-1>::val };
+};
+
+template<> 
+struct funStruct<0>
+{
+	enum { val = 1 };
+};
+
+int main()
+{
+	cout << funStruct<8>::val << endl;
+	return 0;
+}
+
+
+
+=====================================================================================================================================================
+SOLID PRINCIPLES:
+
+
+SRP: SINGLE RESPONSIBILITY PRINCIPLE:
+
+#include<iostream>
+
+using namespace std;
+
+class BankingService{
+    public:
+        int withdrawDepositActivity(int amount, int actNo, string activity){
+            cout<< "With-Drwaing & deposite activity of money "<< endl ;
+        }
+        
+        
+        /*// moved to printing service
+        void printPassBook(){
+            cout << "Printing PassBook " << endl;
+        }
+        
+        // Moved to loan Service 
+        void getLoanInterstInfo(strung loanType){
+            if (loanType == "homeloan")
+            {
+                cout<<"Home loan Intrest"<<endl;
+            }
+            if (loanType=="personalloan")
+            {
+                cout << "Personal loan Intrest" << endl;
+            }
+            if (loanType == "carloan")
+            {
+                cout<<"Car loan Intrest" << endl;
+            }
+        }
+        
+        // Moved to Notification service
+        void sendOTP(string medium){
+            if(medium == "phone"){
+                cout << " OTP through mobile number" << endl;
+            }
+        }*/
+};
+
+class PrintingService{
+    public:
+        void printPassBook(){
+            cout << "Printing PassBook " << endl;
+        }  
+};
+
+class LoanService{
+    public:
+        void getLoanInterstInfo(strung loanType){
+            if (loanType == "homeloan")
+            {
+                cout<<"Home loan Intrest"<<endl;
+            }
+            if (loanType=="personalloan")
+            {
+                cout << "Personal loan Intrest" << endl;
+            }
+            if (loanType == "carloan")
+            {
+                cout<<"Car loan Intrest" << endl;
+            }
+        }
+};
+
+class NotificationService{
+    public:
+        void sendOTP(string medium){
+            if(medium == "phone"){
+                cout << " OTP through mobile number" << endl;
+            }
+        } 
+};
+
+int main(){
+    
+    return 0;
+}
+===========================================================================
+
+OCP: OPEN CLOSED PRINCIPLE:
+
+// OCP
+
+#include<iostream>
+
+using namespace std;
+
+class INotificationService{
+    public:
+        virtual void sendOTP(string medium)=0;
+};
+
+class MailNotificationService: public INotificationService{
+    public:
+        void sendOTP(string medium){
+            cout<< "OTP Through mail" << endl;
+        }
+};
+
+class MobileNotificationService: public INotificationService{
+    public:
+        void sendOTP(string medium){
+            cout << "OTP through Mobile" << endl;
+        }
+};
+
+int main(){
+    
+    return 0;
+}
+
+
+================================================
+LSP: LISKOV-SUBSTITUTION PRINCIPLE;  LSP-ISP
+
+// LSP
+
+#include<iostream>
+
+using namespace std;
+
+class Activities{
+    public:
+        virtual void getAccDetails()=0;
+        virtual void balanceEnquiry()=0;
+        virtual void depositeActivity()=0;
+        virtual void withdrawActity()=0;
+};
+
+class CashierActivities :public Activities{
+    public:
+        void getAccDetails(){
+            cout << "Account Details " << endl;
+        }
+        
+        void balanceEnquiry(){
+            cout << "Balance Details " << endl;
+        }
+        
+        void depositeActivity(){
+            cout << "Deposite Activities"<< endl;
+        }
+        
+        void withdrawActity(){
+            cout << "With draw Activities" << endl;
+        }
+};
+
+// Voilation of ISP;
+class RecepionistActivities :public Activities{
+    public:
+        void getAccDetails(){
+            cout << "Account Details " << endl;
+        }
+        
+        void balanceEnquiry(){
+            cout << "Balance Details " << endl;
+        }
+        
+        
+        void depositeActivity(){}
+        
+        void withdrawActity(){}
+};
+
+int main(){
+    Activities* obj = new CashierActivities();
+    obj->balanceEnquiry();
+    return 0;
+}
+
+
+
+ISP: SOLUTION
+--------------
+
+// LSP
+
+#include<iostream>
+
+using namespace std;
+
+class IActivities{
+    public:
+        virtual void getAccDetails()=0;
+        virtual void balanceEnquiry()=0;
+        
+};
+
+class ICashierActivities{
+    public:
+        virtual void depositeActivity()=0;
+        virtual void withdrawActity()=0;
+};
+
+class CashierActivities :public ICashierActivities, public IActivities{
+    public:
+        void getAccDetails(){
+            cout << "Account Details " << endl;
+        }
+        
+        void balanceEnquiry(){
+            cout << "Balance Details " << endl;
+        }
+        
+        void depositeActivity(){
+            cout << "Deposite Activities"<< endl;
+        }
+        
+        void withdrawActity(){
+            cout << "With draw Activities" << endl;
+        }
+};
+
+
+class RecepionistActivities :public IActivities{
+    public:
+        void getAccDetails(){
+            cout << "Account Details " << endl;
+        }
+        
+        void balanceEnquiry(){
+            cout << "Balance Details " << endl;
+        }
+        
+};
+
+int main(){
+
+    return 0;
+}
+
+=====================================================================
+DIP: DEPENDENCY INVERSION PRINCIPLE:
+------------------------------------
+
+// DIP
+
+#include<iostream>
+
+using namespace std;
+
+class IBankCard{
+    public:
+        virtual void DoTranction(int amount)=0;
+};
+
+class DebitCard: public IBankCard{
+    public:
+        void DoTranction(int amount){
+            cout << "Transactionion through Debitcard" << endl;
+        }
+};
+
+class CreditCard: public IBankCard{
+    public:
+        void DoTranction(int amount){
+            cout << "Transaction through CreditCard" << endl;
+        }
+};
+
+class CardForTransaction{
+    // If it is tightly coupled if we want to do transaction with credit card or debit card then we  need to 
+        // write lot of code and we not able to change obj dynamically
+        
+        // transaction through debit card;
+        public:
+        /*DebitCard* debitcard;
+        CardForTransaction(DebitCard* _debitcard){
+            debitcard = _debitcard;
+        }
+        void doPurchaseWithCard(int amount){
+            debitcard->DoTranction(amount);
+        }*/
+        
+        
+        // if suppose debitcard not accepted,if we want to transaction with credit card then you need to change lot of code;
+        /*CreditCard* creditcard;
+        CardForTransaction(CreditCard* _creditcard){
+            creditcard = _creditcard;
+        }
+        void doPurchaseWithCard(int amount){
+            creditcard->DoTranction(amount);
+        }*/
+        
+        
+        IBankCard* card;
+        CardForTransaction(IBankCard* _card){
+            card = _card;
+        }
+        void doPurchaseWithCard(int amount){
+            card->DoTranction(amount);
+        }
+        
+        
+};
+
+int main(){
+    CardForTransaction* card = new CardForTransaction(new DebitCard());
+    card->doPurchaseWithCard(1000);
+    
+    /*CardForTransaction* card = new CardForTransaction(new CreditCard());
+    card->doPurchaseWithCard(1000);*/
+    return 0;
+}
+
+==============================================================================================================================================================
+
+Smart Pointers
+------------------
+
+#include<iostream>
+#include<memory>
+using namespace std;
+class Test{
+    public:
+    Test(){
+        cout << "Test obj created \n";
+    }
+    ~Test(){
+        cout << "Test obj destroyed \n";
+    }
+    void print(){
+         cout << "in print\n";
+    }
+};
+
+int main(){
+    //Test *temp = new Test();
+    shared_ptr<Test> ptr1;
+    weak_ptr<Test> ptr2;
+    {
+        //Test *temp = new Test();
+    //unique ptr
+    unique_ptr<Test> unq_ptr = make_unique<Test>();
+    unq_ptr->print();
+    //std::unique_ptr<Test> ptr = unq_ptr;
+    
+    //shared_ptr
+     shared_ptr<Test> shr_ptr = make_shared<Test>();
+     cout << "shared count "<< shr_ptr.use_count() <<"\n";
+    ptr1 = shr_ptr;
+    cout << "shared count "<< shr_ptr.use_count() <<"\n";
+    weak_ptr<Test> w_ptr = shr_ptr;
+    cout << "shared count "<< shr_ptr.use_count() <<"\n";
+    //shared_ptr<Test> shr_ptr1 = w_ptr;
+    cout << "shared count "<< shr_ptr.use_count() <<"\n";
+    //w_ptr->print();
+    ptr2 = shr_ptr;
+    }
+    cout << "shared count "<< ptr1.use_count() <<"\n";
+    //ptr2->print();
+    ptr1->print();
+    
+    unique_ptr<int> a = make_unique<int>(10);
+    cout << *a << "\n";
+    //unique_ptr<int> b = a;
+    unique_ptr<int> b = move(a);
+    cout<< *b << "\n";
+    //cout << *a << "\n";
+   
+    shared_ptr<int> shr_ptr2 = make_shared<int>(25);
+    shr_ptr2 = move(b);
+    
+    
+    return 0;
+}
+

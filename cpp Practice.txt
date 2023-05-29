@@ -1,0 +1,2208 @@
+Encapsulation:
+==========================================================
+#include <iostream>
+using namespace std;
+
+class A{
+  private:
+    int a;
+    int b;
+  public:
+    A(int _a, int _b){
+        setA(_a);
+        setB(_b);
+    }
+    
+    void method(){
+        cout << "I am in class A" << endl;
+    }
+    
+    int getA(){
+        return a;
+    }
+    void setA(int _a){
+        a = _a;
+    }
+    int getB(){
+        return b;
+    }
+    void setB(int _b){
+        b = _b;
+    }
+};
+
+int main(){
+    cout << "Hello World!";
+    A obj(2,3);
+    obj.setA(3);
+    obj.setB(4);
+    obj.method();
+    cout << "values " << obj.getA() << " " << obj.getB() ;
+}
+
+========================================================================================
+
+Abstraction:
+
+#include <iostream>
+using namespace std;
+
+class AbstractClass{
+  public:
+    virtual void message()=0;
+};
+
+class child : public AbstractClass{
+  public:
+    void message(){
+        cout << " I am in child cls of AbstractClass";
+    }
+};
+
+class A{
+  public:
+    int a;
+    int b;
+    A(int _a, int _b){
+        a = _a;
+        b = _b;
+    }
+    
+    void method(){
+        cout << "I am in class A" << endl;
+    }
+};
+
+int main(){
+    cout << "Hello World!" << endl;
+    A obj(2,3);
+    obj.method();
+    AbstractClass *c = new child();
+    c->message();
+    cout << "values " << obj.a << " " << obj.b ;
+}
+==========================================================================================
+
+Inheritance:
+
+#include <iostream>
+using namespace std;
+
+class AbstractClass{
+  public:
+    virtual void message()=0;
+};
+
+class child : public AbstractClass{
+  public:
+    void message(){
+        cout << " I am in child cls of AbstractClass";
+    }
+};
+
+class A{
+  public:
+    int a;
+    int b;
+    A(int _a, int _b){
+        a = _a;
+        b = _b;
+    }
+    
+    void method(){
+        cout << "I am in class A" << endl;
+    }
+};
+
+class B : public A{
+  public:
+  int c;
+  B(int _a,int _b,int _c) : A(_a, _b){
+      c = _c;
+  }
+};
+
+int main(){
+    cout << "Hello World!" << endl;
+    A obj(2,3);
+    obj.method();
+    AbstractClass *c = new child();
+    c->message();
+    cout << "values " << obj.a << " " << obj.b << endl ;
+    
+    // inheritance
+    B obj1(1,2,3);
+    cout << "values " << obj1.a << " " << obj1.b << " " << obj1.c << endl;
+    obj1.method();
+}
+
+=======================================================================================================
+
+PolyMorphism:
+
+overriding
+
+
+#include <iostream>
+using namespace std;
+
+class Base{
+  public:
+    virtual void message(){
+        cout << "I am in Base class" << endl;
+    }
+};
+
+class Child : public Base {
+  public:
+    void message(){
+        cout << "I am in Child class" << endl;
+    }
+  
+};
+
+int main(){
+    cout << "Hello World!" << endl;
+    Base b;
+    b.message();
+    Child c;
+    c.message();
+    Base *obj = new Child();
+    obj->message();
+}
+
+============================================================================================
+
+operater overloading:
+
+#include <iostream>
+using namespace std;
+
+class Complex{
+  public:
+  int r;
+  int i;
+  Complex(){
+      
+  }
+  Complex(int R, int I){
+      r = R;
+      i = I;
+  }
+  
+  Complex operator + (Complex obj){
+      Complex temp;
+      temp.r = r + obj.r;
+      temp.i = i + obj.i;
+      return temp;
+  }
+  
+};
+
+int main(){
+    cout << "Hello World!" << endl;
+    Complex c1(1,2);
+    Complex c2(3,4);
+    Complex c3;
+    c3 = c1 + c2;  // c1.operator+(c2)
+    cout << c3.r << " " << c3.i ;
+}
+
+=====================================================================================================
+Exception handling:
+
+#include <iostream>
+using namespace std;
+
+void divide(int x, int y){
+    if(y == 0)
+    throw 'R'; //404 ;//"Cant divide by zero";
+    cout<<"division "<< x/y << endl;
+}
+
+int main(){
+    cout << "Hello World!" << endl;
+    try{
+        divide(10,0);
+    }
+    catch(const char* exceptionMsg){
+        cout << "Exception occured " << exceptionMsg; 
+    }
+    catch(int exceptionMsg){
+        cout << "Exception occured " << exceptionMsg; 
+    }
+    catch(...){
+        cout << "Exception occured "; 
+    }
+}
+
+===========================================================================================
+
+Custome Exception:
+
+#include <iostream>
+#include <exception>
+using namespace std;
+
+class CustomeException : public exception{
+public:
+  const char* what(){
+      return "Custome Exception Occured ";
+  }  
+};
+
+int main(){
+    cout << "Hello World!" << endl;
+    int age;
+    cin >> age;
+    try{
+        if(age<18){
+            CustomeException exption;
+            throw exption;
+        }
+        
+    }
+    catch(CustomeException exption){
+        cout << exption.what(); 
+    }
+    
+}
+
+===================================================================================================
+merge sort
+
+def merge(arr,l,m,h):
+    n1 = m - l + 1
+    n2 = h - m
+    left = []
+    right = []
+    i = 0
+    while(i<n1):
+        left.append(arr[l+i])
+        i+=1
+    j = 0
+    while(j<n2):
+        right.append(arr[m+1+j])
+        j+=1
+    i,j,k = 0,0,l
+    while(i<n1 and j<n2):
+        if(left[i] <= right[j]):
+            arr[k] = left[i]
+            i+=1
+            k += 1
+        else:
+            arr[k] = right[j]
+            j+=1
+            k+=1
+    while(i<n1):
+        arr[k] = left[i]
+        i += 1
+        k += 1
+    while(j<n2):
+        arr[k] = right[j]
+        j += 1
+        k += 1
+    
+    
+def mergeSort(arr, l, h):
+    if(l<h):
+        m = l + (h-l)//2
+        mergeSort(arr,l, m)
+        mergeSort(arr,m+1,h)
+        merge(arr,l,m,h)
+        
+arr = [4,1,7,5,9,2]
+print(*arr)
+mergeSort(arr,0,5)
+print(*arr)
+
+
+============================================================
+Quick Sort:
+
+def partion(arr, l, h):
+    pivot = arr[h]
+    i = l-1
+    for j in range(l,h):
+        if(arr[j] <= pivot):
+            i += 1
+            arr[i],arr[j] = arr[j],arr[i]
+    arr[i+1],arr[h] = arr[h],arr[i+1]
+    return i+1
+    
+def quicksort(arr,l,h):
+    if(l<h):
+        q = partion(arr,l,h)
+        quicksort(arr,l,q-1)
+        quicksort(arr,q+1,h)
+        
+arr = [4,1,7,5,9,2]
+print(*arr)
+quicksort(arr,0,5)
+print(*arr)
+
+===============================================================================================
+multiple inheritance:
+
+#include<iostream>
+using namespace std;
+
+class A{
+  public:
+    void display(){
+        cout << " A cls display ";
+    }
+};
+
+class B{
+  public:
+    void display(){
+        cout << " B cls display ";
+    }
+};
+
+class C:public A,public B{
+    public:
+      void display1(){
+          cout << "C display";
+      }
+      void display(){
+          A::display();
+          B::display();
+          cout << " C display ";
+      }
+};
+
+int main(){
+    C c;
+    c.display();
+}
+
+====================================================================================================
+Friend function:
+
+#include<iostream>
+using namespace std;
+
+class A{
+    private:
+        int x;
+  public:
+  A(int a){
+      x=a;
+  }
+    void display(){
+        cout << " A cls display ";
+    }
+    friend void frdfun(A &a);
+};
+
+
+void frdfun(A &a){
+    cout<< " A func x value " << a.x;
+}
+
+
+int main(){
+    A obj(2);
+    frdfun(obj);
+}
+=======================================================================================================
+Friend Class:
+
+#include<iostream>
+using namespace std;
+
+class A{
+    friend class B;
+    private:
+        int x;
+  public:
+  A(int a){
+      x=a;
+  }
+    void display(){
+        cout << " A cls display ";
+    }
+    
+};
+
+class B{
+    public:
+    void showData(A a){
+        cout<< " A data in cls B is "<< a.x;
+    }
+};
+
+int main(){
+    A obj(2);
+    B b;
+    b.showData(obj);
+}
+================================================================================================
+Pointers and References Swap function of two varaibles:
+
+#include <iostream>
+
+using namespace std;
+
+void swap1(int &x, int &y){
+    int temp = x;
+    x = y;
+    y = temp;
+} 
+
+void swap1(int *x, int *y){
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main()
+{
+    int a = 10, b = 20;
+    swap1(a,b);
+    cout << "by reference" << endl;
+    cout << a << " " << b << endl;
+    swap1(&a, &b);
+    cout << "by Addresses" << endl;
+    cout << a << " " << b << endl;
+    
+
+    return 0;
+}
+
+
+=====================================================================================================
+#include <bits/stdc++.h>
+
+to include all library and headers in programe..
+============================================================================================================
+Namespaces and Scope, Creating different namespaces and accessing using scope resolution operator;
+
+#include <iostream>
+
+using namespace std;
+
+namespace space{
+    // to declare variables and functions in seperate namespace and to use in main;
+    // no conflict even if same variable names are present as they are in diff. namespaces
+    int val = 100;
+    void fun(){
+        cout << "In the space namespace function" << endl;
+    }
+}
+
+void fun(){
+    cout << "In the normal fun "<< endl;
+}
+
+int main()
+{
+    int val = 200;
+    cout << "Normal val is " << val << endl;
+    cout << " Normal fun :"  << endl;
+    fun();
+    cout << " other naemspace val is "<< space::val << endl;
+    cout << " other namespace fun :" << endl;
+    space::fun();
+
+    return 0;
+}
+
+====================================================================================================================
+Strings:
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    string str;
+    
+    getline(cin,str);
+    
+    cout << "Initial String :" << str << endl;
+    
+    str.push_back('h');
+    cout << "After adding last: "<< str << endl;
+    str.pop_back();
+    cout<< "After pop back from str: "<< str << endl;
+    cout << "Capacity of the string: "<< str.capacity() << endl;
+    cout << "Length of the string: "<< str.length() << endl;
+    str.resize(5);
+    cout<< "After resizing the str: " << str<< endl;
+    cout<< "After resizing the string:"<< endl;
+    cout << "Capacity of the string: "<< str.capacity() << endl;
+    cout << "Length of the string: "<< str.length() << endl;
+    
+    string::iterator it;
+    string::reverse_iterator it1;
+    cout<< "Forward traversing" << endl;
+    for(it = str.begin(); it!=str.end(); it++){
+        cout<< *it << " ";
+    }
+    cout << "\nReverse traversing" << endl;
+    for(it1 = str.rbegin(); it1!=str.rend(); it1++){
+       cout<< *it1 << " "; 
+    }
+    
+    
+    return 0;
+}
+======================================================================================================
+String cls and its methods:
+
+
+// C++ program to demonstrate various function string class
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    // various constructor of string class
+
+    // initialization by raw string
+    string str1("first string");
+
+    // initialization by another string
+    string str2(str1);
+
+    // initialization by character with number of occurrence
+    string str3(5, '#');
+
+    // initialization by part of another string
+    string str4(str1, 6, 6); //    from 6th index (second parameter)
+                             // 6 characters (third parameter)
+
+    // initialization by part of another string : iterator version
+    string str5(str2.begin(), str2.begin() + 5);
+
+    cout << str1 << endl;
+    cout << str2 << endl;
+    cout << str3 << endl;
+    cout << str4 << endl;
+    cout << str5 << endl;
+
+    //  assignment operator
+    string str6 = str4;
+
+    // clear function deletes all character from string
+    str4.clear();
+
+    //  both size() and length() return length of string and
+    //  they work as synonyms
+    int len = str6.length(); // Same as "len = str6.size();"
+
+    cout << "Length of string is : " << len << endl;
+
+    // a particular character can be accessed using at /
+    // [] operator
+    char ch = str6.at(2); //  Same as "ch = str6[2];"
+
+
+    cout << "third character of string is : " << ch << endl;
+
+    //  front return first character and back returns last character
+    //  of string
+
+    char ch_f = str6.front();  // Same as "ch_f = str6[0];"
+    char ch_b = str6.back();   // Same as below
+                               // "ch_b = str6[str6.length() - 1];"
+
+    cout << "First char is : " << ch_f << ", Last char is : "
+         << ch_b << endl;
+
+    // c_str returns null terminated char array version of string
+    const char* charstr = str6.c_str();
+    printf("%s\n", charstr);
+
+    // append add the argument string at the end
+    str6.append(" extension");
+    //  same as str6 += " extension"
+
+    // another version of append, which appends part of other
+    // string
+    str4.append(str6, 0, 6);  // at 0th position 6 character
+
+    cout << str6 << endl;
+    cout << str4 << endl;
+
+    //  find returns index where pattern is found.
+    //  If pattern is not there it returns predefined
+    //  constant npos whose value is -1
+
+    if (str6.find(str4) != string::npos)
+        cout << "str4 found in str6 at " << str6.find(str4)
+             << " pos" << endl;
+    else
+        cout << "str4 not found in str6" << endl;
+
+    //  substr(a, b) function returns a substring of b length
+    //  starting from index a
+    cout << str6.substr(7, 3) << endl;
+
+    //  if second argument is not passed, string till end is
+    // taken as substring
+    cout << str6.substr(7) << endl;
+
+    //  erase(a, b) deletes b characters at index a
+    str6.erase(7, 4);
+    cout << str6 << endl;
+
+    //  iterator version of erase
+    str6.erase(str6.begin() + 5, str6.end() - 3);
+    cout << str6 << endl;
+
+    str6 = "This is a examples";
+
+    //  replace(a, b, str)  replaces b characters from a index by str
+    str6.replace(2, 7, "ese are test");
+
+    cout << str6 << endl;
+
+    return 0;
+}
+
+================================================================================================================
+Pointers and smart Pointers:
+
+
+ link to smart pointers:  https://practice.geeksforgeeks.org/batch/fork-cpp/track/module-3-pointers-and-objects/article/MzIz
+
+
+Pointers are used for accessing the resources which are external to the program - like heap memory. 
+So, for accessing the heap memory (if anything is created inside heap memory), pointers are used.
+ When accessing any external resource we just use a copy of the resource.
+ If we make any change to it, we just change it in the copied version. 
+But, if we use a pointer to the resource, we'll be able to change the original resource.
+
+Problems with Normal Pointers:
+
+#include <iostream>
+using namespace std;
+
+class Rectangle {
+private:
+    int length;
+    int breadth;
+};
+
+void fun()
+{
+    // By taking a pointer p and
+    // dynamically creating object
+    // of class rectangle
+    Rectangle* p = new Rectangle();
+}
+
+int main()
+{
+    // Infinite Loop
+    while (1) {
+        fun();
+    }
+}
+=======================================================================================================================================================
+Difference Between Reference Variable and Pointer Variable:
+ 
+A reference is the same object, just with a different name and a reference must refer to an object. Since references can't be NULL, they are safer to use. 
+
+1 => A pointer can be re-assigned while a reference cannot, and must be assigned at initialization only.
+2 => The pointer can be assigned NULL directly, whereas the reference cannot.
+3 => Pointers can iterate over an array, we can use increment/decrement operators to go to the next/previous item that a pointer is pointing to.
+4 => A pointer is a variable that holds a memory address. A reference has the same memory address as the item it references.
+5 => A pointer to a class/struct uses '->' (arrow operator) to access its members whereas a reference uses a '.' (dot operator)
+6 => A pointer needs to be dereferenced with * to access the memory location it points to, whereas a reference can be used directly.
+
+
+// C++ program to demonstrate differences
+// between pointer and reference
+#include <iostream>
+using namespace std;
+
+struct demo {
+    int a;
+};
+
+int main()
+{
+    int x = 5;
+    int y = 6;
+    demo d;
+
+    int* p;
+    p = &x;
+    p = &y; // 1. Pointer reintialization allowed
+
+    int& r = x;
+    // &r = y;                 // 1. Compile Error
+
+    r = y; // 1. x value becomes 6
+
+    p = NULL;
+    // &r = NULL;             // 2. Compile Error
+
+    // 3. Points to next memory location
+    p++;
+
+    // 3. x values becomes 7
+    r++;
+
+    cout << &p << " " << &x << '\n'; // 4. Different address
+    cout << &r << " " << &x << '\n'; // 4. Same address
+
+    demo* q = &d;
+    demo& qq = d;
+
+    q->a = 8;
+    // q.a = 8;                 // 5. Compile Error
+    qq.a = 8;
+    // qq->a = 8;             // 5. Compile Error
+
+    // 6. Prints the address
+    cout << p << '\n';
+
+    // 6. Print the value of x
+    cout << r << '\n';
+
+    return 0;
+}
+
+
+Which is preferred in Passing by Pointer Vs Passing by Reference in C++? 
+	1) References are usually preferred over pointers whenever we don’t need “reseating”.
+	2) Overall, Use references when you can, and pointers when you have to. But if we want to write C code 
+		that compiles with both C and a C++ compiler, you'll have to restrict yourself to using pointers.
+
+===========================================================================================================================================================================================================================================================================
+Funtion pointers:
+
+
+#include <iostream>
+using namespace std;
+
+void fun(){
+    cout << "In the function fun"<< endl;
+}
+
+int sum(int a, int b){
+    return a+b;
+}
+
+int main()
+{
+    // Normal calling;
+    cout << "Normal calling" << endl;
+    fun();
+    cout << "Sum is "<< sum(10,20) << endl;
+    cout<< "using function pointers" << endl;
+    // Creating fun pointers (pointers to fun)
+    // syntax:  return_type_of_fun (*fun_name)(parameter_list);
+    
+    // pointer for fun;
+    void (*fun_ptr)();
+    fun_ptr = fun;
+    // pointer for sum;
+    int (*fun_ptr1)(int,int) = sum;
+    cout << fun_ptr << endl;
+    cout << fun_ptr1(20,30) << endl;
+    
+    return 0;
+}
+
+
+
+#include <stdio.h> 
+// A normal function with an int parameter 
+// and void return type 
+void fun(int a) 
+{ 
+    printf("Value of a is %d\n", a); 
+} 
+  
+int main() 
+{ 
+    // fun_ptr is a pointer to function fun()  
+    void (*fun_ptr)(int) = &fun; 
+  
+    /* The above line is equivalent of following two 
+       void (*fun_ptr)(int); 
+       fun_ptr = &fun;  
+    */
+  
+    // Invoking fun() using fun_ptr 
+    (*fun_ptr)(10); 
+  
+    return 0; 
+} 
+
+
+Why do we need an extra bracket around function pointers like fun_ptr in above example?
+If we remove bracket, then the expression “void (*fun_ptr)(int)” becomes “void *fun_ptr(int)”
+ which is declaration of a function that returns void pointer. See following post for details.
+
+
+Following are some interesting facts about function pointers.
+
+1 => Unlike normal pointers, a function pointer points to code, not data. 
+	Typically a function pointer stores the start of executable code.
+2) Unlike normal pointers, we do not allocate de-allocate memory using function pointers.
+
+ 
+3) A function’s name can also be used to get functions’ address. For example, 
+	in the below program, we have removed address operator ‘&’ in assignment. We have also changed function call by removing *, the program still works.
+
+
+#include <stdio.h> 
+// A normal function with an int parameter 
+// and void return type 
+void fun(int a) 
+{ 
+	printf("Value of a is %d\n", a); 
+} 
+
+int main() 
+{ 
+	void (*fun_ptr)(int) = fun; // & removed 
+
+	fun_ptr(10); // * removed 
+
+	return 0; 
+}
+
+
+4) Like normal data pointers, a function pointer can be passed as an argument and can also be returned from a function.
+
+	Passing functions as parameters;
+	
+	
+    #include <iostream>
+    using namespace std;
+    
+    void GreetMorning(){
+        cout << "Hello , Good Morning" << endl;
+    }
+    
+    void GreetEvening(){
+        cout << "Hello , Good Evening" << endl;
+    }
+    
+    void GreetNight(){
+        cout<< "Hello , Good Night" << endl;
+    }
+    
+    void Greeter(void (*greet_ptr)()){
+        greet_ptr();
+    }
+    
+    int main()
+    {
+        Greeter(GreetMorning);
+        Greeter(GreetEvening);
+        Greeter(GreetNight);
+        return 0;
+    }
+
+==========================================================================================================================================================================
+Pointer to an Array
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+int arr[5] = { 1, 2, 3, 4, 5 };
+int *ptr = arr;
+
+cout <<"\n"<< ptr;
+return 0;
+}
+
+In this program, we have a pointer ptr that points to the 0th element of the array. Similarly, we can also declare a pointer that can point to whole array instead of only one element of the array.
+ This pointer is useful when talking about multidimensional arrays. 
+
+SYNTAX:
+data_type (*var_name)[size_of_array];
+int (*ptr)[10];
+
+Here ptr is pointer that can point to an array of 10 integers. Since subscript have higher precedence than indirection, it is necessary to enclose the indirection 
+operator and pointer name inside parentheses. Here the type of ptr is 'pointer to an array of 10 integers'. 
+Note : The pointer that points to the 0th element of array and the pointer that points to the whole array are totally different. The following program shows this: 
+
+// C++ program to understand difference between 
+// pointer to an integer and pointer to an
+// array of integers. 
+#include <iostream>
+using namespace std;
+int main()
+{
+    // Pointer to an integer
+    int *p; 
+    
+    // Pointer to an array of 5 integers
+    int (*ptr)[5]; 
+    int arr[5];
+    
+    // Points to 0th element of the arr.
+    p = arr;
+    
+    // Points to the whole array arr.
+    ptr = &arr; 
+    
+    cout << "p =" << p <<", ptr = "<< ptr<< endl;
+    p++; 
+    ptr++;
+    cout << "p =" << p <<", ptr = "<< ptr<< endl;
+    
+    return 0;
+}
+
+O/P: 
+p = 0x7fff4f32fd50, ptr = 0x7fff4f32fd50
+p = 0x7fff4f32fd54, ptr = 0x7fff4f32fd64
+
+p: is pointer to 0th element of the array arr, while ptr is a pointer that points to the whole array arr. 
+ 
+The base type of p is int while base type of ptr is 'an array of 5 integers'.
+We know that the pointer arithmetic is performed relative to the base size, so if we write ptr++, then the pointer ptr will be shifted forward by 20 bytes.
+
+====================================================================================================================================================================================================================
+
+Pointer vs Array
+
+
+Most of the time, pointer and array accesses can be treated as acting the same, the major exceptions being: 
+
+1) the sizeof operator 
+o sizeof(array) returns the amount of memory used by all elements in array 
+o sizeof(pointer) only returns the amount of memory used by the pointer variable itself 
+
+2) the & operator 
+o array is an alias for &array[0] and returns the address of the first element in array 
+o &pointer returns the address of pointer 
+
+3) a string literal initialization of a character array 
+o char array[] = "abc" sets the first four elements in array to 'a', 'b', 'c', and '\0' 
+o char *pointer = "abc" sets pointer to the address of the "abc" string (which may be stored in read-only memory and thus unchangeable) 
+
+4) Pointer variable can be assigned a value whereas array variable cannot be.
+int a[10];
+int *p; 
+p=a; /*legal*/
+a=p; /*illegal*/ 
+
+
+5) Arithmetic on pointer variable is allowed. 
+p++; /*Legal*/
+a++; /*illegal*/ 
+
+6) Array is a collection of similar data types while pointer variable stores the address of another variable.
+
+============================================================================================================================================================================================================================
+
+Normal Array Declaration vs Using new 
+
+There is a difference between declaring a normal array and allocating a block of memory using new. The most important difference is, that normal arrays are deallocated by the compiler (If the array is local, 
+	then deallocated when the function returns or completes). However, dynamically allocated arrays always remain there until either they are deallocated by the programmer or the program terminates.
+
+What if enough memory is not available during runtime? 
+
+If enough memory is not available in the heap to allocate, the new request indicates failure by throwing an exception of type std::bad_alloc, unless "nothrow" is used with the new operator, 
+in which case it returns a NULL pointer (scroll to section "Exception handling of new operator" in this article). Therefore, it may be a good idea to check for the pointer variable produced by the new before using its program. 
+
+int *p = new(nothrow) int;
+if (!p)
+{
+   cout << "Memory allocation failed\n";
+}
+
+==========================================================================================================================================================================================================================
+Structures in C
+
+A structure is a key word that create user defined data type in C/C++. A structure creates a data type that can be used to group items of possibly different types into a single type. 
+
+struct address
+{
+   char name[50];
+   char street[100];
+   char city[50];
+   char state[20];
+   int pin;
+};
+
+// A variable declaration with structure declaration.
+struct Point
+{
+   int x, y;
+} p1;  // The variable p1 is declared with 'Point'
+
+
+// A variable declaration like basic data types
+struct Point
+{
+   int x, y;
+}; 
+
+int main()
+{
+   struct Point p1;  // The variable p1 is declared like a normal variable
+}
+
+
+Note: In C++, the struct keyword is optional before in declaration of a variable. In C, it is mandatory.
+
+How to initialize structure members? 
+Structure members cannot be initialized with declaration. For example the following C program fails in compilation. 
+
+struct Point
+{
+   int x = 0;  // COMPILER ERROR:  cannot initialize members here
+   int y = 0;  // COMPILER ERROR:  cannot initialize members here
+}; 
+
+The reason for above error is simple, when a datatype is declared, no memory is allocated for it. Memory is allocated only when variables are created.
+Structure members can be initialized using curly braces '{}'. For example, following is a valid initialization. 
+
+
+// A valid initialization. member x gets value 0 and y
+   // gets value 1.  The order of declaration is followed.
+   struct Point p1 = {0, 1}; 
+
+Limitations of C Structures
+
+In C language, Structures provide a method for packing together data of different types. A Structure is a helpful tool to handle a group of logically related data items. However, C structures have some limitations.
+ 
+
+=>The C structure does not allow the struct data type to be treated like built-in data types:
+
+=>We cannot use operators like +,- etc. on Structure variables.
+=> No Data Hiding: C Structures do not permit data hiding. Structure members can be accessed by any function, anywhere in the scope of the Structure.
+=> Functions inside Structure: C structures do not permit functions inside Structure
+=> Static Members: C Structures cannot have static members inside their body
+=> Access Modifiers: C Programming language do not support access modifiers. So they cannot be used in C Structures.
+=> Construction creation in Structure: Structures in C cannot have constructor inside Structures.
+======================================================================================================================================================================================================================================
+
+Differences Between the C and C++ Structures:
+
+C Structures
+
+=> Only data members are allowed, it cannot have member functions.
+=> Cannot have static members.	
+=> Cannot have a constructor inside a structure.	
+=> Direct Initialization of data members is not possible.
+=> Writing the ‘struct’ keyword is necessary to declare structure-type variables.	
+=> Do not have access modifiers.	
+=> Only pointers to structs are allowed.	
+=> Sizeof operator will generate 0  for an empty structure.
+=> Data Hiding is not possible.	
+	
+
+C++ Structures
+
+=> Can hold both: member functions and data members.
+=> Can have static members.
+=> Constructor creation is allowed.
+=> Direct Initialization of data members is possible.
+=> Writing the ‘struct’ keyword is not necessary to declare structure-type variables.
+=> Supports access modifiers.
+=> Can have both pointers and references to the struct.
+=> Sizeof operator will generate 1 for an empty structure.
+=> Data Hiding is possible.
+
+====================================================================================================================================================================================================================================
+
+There are 2 ways to define a member function:
+Inside class definition
+Outside class definition
+
+To define a member function outside the class definition we have to use the scope resolution :: operator along with class name and function name.
+
+// C++ program to demonstrate function 
+// declaration outside class
+
+#include <bits/stdc++.h>
+using namespace std;
+class Geeks
+{
+    public:
+    string geekname;
+    int id;
+    
+    // printname is not defined inside class definition
+    void printname();
+    
+    // printid is defined inside class definition
+    void printid()
+    {
+        cout << "Geek id is: " << id;
+    }
+};
+
+// Definition of printname using scope resolution operator ::
+void Geeks::printname()
+{
+    cout << "Geekname is: " << geekname; 
+}
+int main() {
+    
+    Geeks obj1;
+    obj1.geekname = "xyz";
+    obj1.id=15;
+    
+    // call printname()
+    obj1.printname();
+    cout << endl;
+    
+    // call printid()
+    obj1.printid();
+    return 0;
+}
+
+========================================================================================================================================================
+
+new vs operator new in C++
+
+When you create a new object, memory is allocated using operator new function and then the constructor is invoked to initialize the memory. 
+Here, The new operator does both the allocation and the initialization, where as the operator new only does the allocation.
+Let us see how these both work individually.
+
+new keyword
+
+The new operator is an operator which denotes a request for memory allocation on the Heap. If sufficient memory is available, new operator initializes the memory and returns the address of the newly allocated and initialized memory to the pointer variable. When you create an object of class using new keyword(normal new).
+=>The memory for the object is allocated using operator new from heap.
+=>The constructor of the class is invoked to properly initialize this memory.
+
+// CPP program to illustrate 
+// use of new keyword
+#include<iostream>
+using namespace std;
+class car
+{
+    string name;
+    int num;
+
+    public:
+        car(string a, int n)
+        {
+            cout << "Constructor called" << endl;
+            this ->name = a;
+            this ->num = n;
+        }
+
+        void enter()
+        {
+            cin>>name;
+            cin>>num;
+        }
+
+        void display()
+        {
+            cout << "Name: " << name << endl;
+            cout << "Num: " << num << endl;
+        }
+};
+
+int main()
+{
+    // Using new keyword
+    car *p = new car("Honda", 2017);
+    p->display();
+}
+
+
+OUTPUT:
+Constructor called
+Name: Honda
+Num: 2017
+
+
+Operator new
+
+Operator new is a function that allocates raw memory and conceptually a bit similar to malloc().
+=>It is the mechanism of overriding the default heap allocation logic.
+=>It doesn't initializes the memory i.e constructor is not called. However, after our overloaded new returns, the compiler then automatically calls the constructor also as applicable.
+=>It's also possible to overload operator new either globally, or for a specific class
+
+
+// CPP program to illustrate 
+// use of operator new
+#include<iostream>
+#include<stdlib.h>
+
+using namespace std;
+
+class car
+{
+    string name;
+    int num;
+
+    public:
+
+        car(string a, int n)
+        {
+            cout << "Constructor called" << endl;
+            this->name = a;
+            this->num = n;
+        }
+
+        void display()
+        { 
+            cout << "Name: " << name << endl;
+            cout << "Num: " << num << endl;
+        }
+
+        void *operator new(size_t size) // new operator overloded
+        {
+            cout << "new operator overloaded" << endl;
+            void *p = malloc(size);
+            return p;
+        }
+
+        void operator delete(void *ptr) // delete operator overloaded
+        {
+            cout << "delete operator overloaded" << endl;
+            free(ptr);
+        }
+};
+
+int main()
+{
+    car *p = new car("HYUNDAI", 2012);
+    p->display();
+    delete p;
+}
+
+OUTPUT:
+new operator overloaded
+Constructor called
+Name:HYUNDAI
+Num:2012
+delete operator overloaded
+
+
+New operator vs operator new
+
+1)Operator vs function: new is an operator as well as a keyword whereas operator new is only a function.
+2)New calls "Operator new": "new operator" calls "operator new()" , like the way + operator calls operator +()
+3)"Operator new" can be Overloaded: Operator new can be overloaded just like functions allowing us to do customized tasks.
+4)Memory allocation: 'new expression' call 'operator new' to allocate raw memory, then call constructor.
+
+
+
+=======================================================================================================================================================================
+
+					STL
+
+STL has 4 components:
+
+
+- Algorithms
+- Containers
+- Functions
+- Iterators
+
+Algorithms
+
+The header algorithm defines a collection of functions specially designed to be used on a range of elements. 
+They act on containers and provide means for various operations for the contents of the containers.
+
+Algorithm
+	Sorting
+	Searching
+	Important STL Algorithms
+	Useful Array algorithms
+	Partition Operations
+Numeric
+	valarray class
+
+Containers:
+
+Containers or container classes store objects and data. There are in total seven standards "first-class" container classes and three container adaptor classes and only seven header files that provide access to these containers or container adaptors.
+
+Sequence Containers: implement data structures that can be accessed in a sequential manner.
+	vector
+	list
+	deque
+	arrays
+	forward_list( Introduced in C++11)
+Container Adaptors: provide a different interface for sequential containers.
+	queue
+	priority_queue
+	stack
+Associative Containers: implement sorted data structures that can be quickly searched (O(log n) complexity).
+	set
+	multiset
+	map
+	multimap
+Unordered Associative Containers: implement unordered data structures that can be quickly searched
+	unordered_set (Introduced in C++11)
+	unordered_multiset (Introduced in C++11)
+	unordered_map (Introduced in C++11)
+	unordered_multimap (Introduced in C++11)
+
+
+Functions:
+
+The STL includes classes that overload the function call operator. Instances of such classes are called function objects or functors. 
+Functors allow the working of the associated function to be customized with the help of parameters to be passed.
+
+-Functors
+
+Iterators
+   As the name suggests, iterators are used for working upon a sequence of values. They are the major feature that allows generality in STL.
+
+Utility Library:
+Defined in header <utility>.
+	-pair
+
+SORTING ALGO:
+-----------------
+SORT()
+
+It generally takes two parameters, the first one being the point of the array/vector from where the sorting needs to begin and 
+the second parameter being the length up to which we want the array/vector to get sorted. The third parameter is optional and 
+can be used in cases such as if we want to sort the elements lexicographically.
+
+By default, the sort() function sorts the elements in ascending order.
+
+Below is a simple program to show the working of sort(). 
+
+How to sort in descending order? 
+sort() takes a third parameter that is used to specify the order in which elements are to be sorted. We can pass the “greater()” function 
+to sort in descending order. This function does a comparison in a way that puts greater elements before. 
+
+Sort the array only in the given range: To deal with such types of problems we just have to mention the range inside the sort function.
+
+How to sort in a particular order? 
+We can also write our own comparator function and pass it as a third parameter. This “comparator” function returns a value; 
+convertible to bool, which basically tells us whether the passed “first” argument should be placed before the passed “second” argument or not. 
+For eg: In the code below, suppose intervals {6,8} and {1,9} are passed as arguments in the “compareInterval” function(comparator function). 
+Now as i1.first (=6) < i2.first (=1), so our function returns “false”, which tells us that “first” argument should not be placed before “second”
+ argument and so sorting will be done in order like {1,9} first and then {6,8} as next. 
+
+
+
+#include <algorithm>
+#include <iostream>
+  
+using namespace std;
+  
+void show(int a[], int array_size)
+{
+    for (int i = 0; i < array_size; ++i)
+        cout << a[i] << " ";
+}
+  
+struct Interval{
+    int start;
+    int end;
+};
+
+// class Comparator
+template <class T>
+class Comparator{// we pass an object of this class as
+                   // third arg to sort function...
+    public:
+        bool operator()(T x1, T x2){
+            return x1-x2;
+        }
+};
+
+// function comparator
+bool myComparater(Interval I1, Interval I2){
+    return I1.start < I2.start;
+}
+// Driver code
+int main()
+{
+    int a[] = { 1, 5, 8, 9, 6, 7, 3, 4, 2, 0 };
+    
+    // size of the array
+    int asize = sizeof(a) / sizeof(a[0]);
+    cout << "The array before sorting is : \n";
+    
+    // print the array
+    show(a, asize);
+  
+      // sort the array
+    sort(a, a + asize);
+  
+    cout << "\n\nThe array after sorting is :\n";
+    
+    // print the array after sorting
+    show(a, asize);
+    
+    // sort the array in decending order
+    sort(a, a+asize, greater<int>());
+    
+    cout << "\n\nThe array after sorting in decending order is :\n";
+    
+    // print the array after sorting
+    show(a, asize);
+    
+    // sort in a given range
+    sort(a+3, a+asize);
+    cout << "\n\nThe array after sorting for given range is :\n";
+    
+    // print the array after sorting
+    show(a, asize);
+    
+    Interval arr[] = { { 6, 8 }, { 1, 9 }, { 2, 4 }, { 4, 7 } };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    // sort according to my comparator
+    sort(arr,arr+n,myComparater);
+    cout << "\n\nThe array of intervals after sorting by start time :\n";
+    for (int i = 0; i < n; i++)
+        cout << "[" << arr[i].start << "," << arr[i].end
+             << "] ";
+    
+    show(a,asize);
+    // sort using calss comparator
+    sort(a,a+asize, Comparator<int>());
+    cout << "\n\nThe array after sorting by class Comparator is :\n";
+    
+    // print the array after sorting
+    show(a, asize);
+    
+    return 0;
+}
+
+
+BINARY_SEARCH():
+-------------------
+The prototype for binary search is : 
+
+binary_search(startaddress, 
+              endaddress, valuetofind)
+Parameters :
+startaddress: the address of the first 
+              element of the array.
+endaddress: the address of the next contiguous 
+            location of the last element of the array.
+valuetofind: the target value which we have 
+             to search for.
+Returns :
+true if an element equal to valuetofind is found, else false.
+
+// CPP program to implement
+// Binary Search in
+// Standard Template Library (STL)
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+void show(int a[], int arraysize)
+{
+	for (int i = 0; i < arraysize; ++i)
+		cout << a[i] << ",";
+}
+
+int main()
+{
+	int a[] = { 1, 5, 8, 9, 6, 7, 3, 4, 2, 0 };
+	int asize = sizeof(a) / sizeof(a[0]);
+	cout << "\nThe array is : \n";
+	show(a, asize);
+
+	cout << "\n\nLet's say we want to search for ";
+	cout << "\n2 in the array So, we first sort the array";
+	sort(a, a + asize);
+	cout << "\n\nThe array after sorting is : \n";
+	show(a, asize);
+	cout << "\n\nNow, we do the binary search";
+	if (binary_search(a, a + 10, 2))
+		cout << "\nElement found in the array";
+	else
+		cout << "\nElement not found in the array";
+
+	cout << "\n\nNow, say we want to search for 10";
+	if (binary_search(a, a + 10, 10))
+		cout << "\nElement found in the array";
+	else
+		cout << "\nElement not found in the array";
+
+	return 0;
+}
+
+
+OUTPUT:
+
+The array is : 
+1,5,8,9,6,7,3,4,2,0,
+
+Let's say we want to search for 
+2 in the array So, we first sort the array
+
+The array after sorting is : 
+0,1,2,3,4,5,6,7,8,9,
+
+Now, we do the binary search
+Element found in the array
+
+Now, say we want to search for 10
+Element not found in the array
+
+Algorithm Library:
+---------------------
+
+https://www.geeksforgeeks.org/c-magicians-stl-algorithms/
+https://www.geeksforgeeks.org/algorithms-library-c-stl/
+
+Non-Manipulating Algorithems:
+-------------------------------
+=> sort(first_iterator, last_iterator) – To sort the given vector.
+=> sort(first_iterator, last_iterator, greater<int>()) – To sort the given container/vector in descending order
+=> reverse(first_iterator, last_iterator) – To reverse a vector. ( if ascending -> descending  OR  if descending -> ascending)
+=> *max_element (first_iterator, last_iterator) – To find the maximum element of a vector.
+=> *min_element (first_iterator, last_iterator) – To find the minimum element of a vector.
+=> accumulate(first_iterator, last_iterator, initial value of sum) – Does the summation of vector elements
+=> count(first_iterator, last_iterator,x) – To count the occurrences of x in vector.
+=> find(first_iterator, last_iterator, x) – Returns an iterator to the first occurrence of x in vector and points to last address of vector ((name_of_vector).end()) if element is not present in vector.
+=> binary_search(first_iterator, last_iterator, x) – Tests whether x exists in sorted vector or not.
+=> lower_bound(first_iterator, last_iterator, x) – returns an iterator pointing to the first element in the range [first,last) which         has a value not less than ‘x’.
+=> upper_bound(first_iterator, last_iterator, x) – returns an iterator pointing to the first element in the range [first,last)                  which has a value greater than ‘x’. 
+
+Some Manipulating Algorithms
+
+=> arr.erase(position to be deleted) – This erases selected element in vector and shifts and resizes the vector elements accordingly.
+=> arr.erase(unique(arr.begin(),arr.end()),arr.end()) – This erases the duplicate occurrences in sorted vector in a single line.
+=> next_permutation(first_iterator, last_iterator) – This modified the vector to its next permutation.
+=> prev_permutation(first_iterator, last_iterator) – This modified the vector to its previous permutation. 
+=> distance(first_iterator,desired_position) – It returns the distance of desired position from the first iterator.This function               is very useful while finding the index.
+
+
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<numeric> // for accumulate
+
+using namespace std;
+
+int main(){
+    int arr[] = {10, 20, 5, 23 ,20 ,42 , 15};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    vector<int> vect(arr,arr+n);
+    cout << "Vector is: ";
+    for (int i=0; i<n; i++)
+        cout << vect[i] << " ";
+        
+    // Sorting the Vector in Ascending order
+    sort(vect.begin(),vect.end());
+    
+    cout << "\nVector after sorting is: ";
+    for (int i=0; i<n; i++)
+       cout << vect[i] << " ";
+       
+    // Sorting the Vector in Descending order
+    sort(vect.begin(),vect.end(),greater<int>());
+    cout << "\nVector after sorting in Descending order is: ";
+    for (int i=0; i<n; i++)
+       cout << vect[i] << " ";
+       
+    // Reversing the Vector (descending to ascending , ascending to descending)
+    reverse(vect.begin(),vect.end());
+    cout << "\nVector after reversing is: ";
+    for (int i=0; i<n; i++)
+        cout << vect[i] << " ";
+        
+    cout << "\nMaximum element of vector is: ";
+    cout<< *max_element(vect.begin(),vect.end());
+    
+    cout << "\nMinimum element of vector is: ";
+    cout << *min_element(vect.begin(), vect.end());
+    
+    // Starting the summation from 0
+    cout << "\nThe summation of vector elements is: ";
+    cout << accumulate(vect.begin(),vect.end(),0);
+    
+    cout << "\nThe occurences of 20 is: ";
+    cout << count(vect.begin(),vect.end(),20);
+    
+    // find() returns iterator to last address if
+    // element not present
+    find(vect.begin(), vect.end(),5) != vect.end()?
+                         cout << "\nElement found":
+                     cout << "\nElement not found";
+                     
+    // Sort the array to make sure that lower_bound()
+    // and upper_bound() work.
+    sort(vect.begin(), vect.end());
+    // Returns the first occurrence of 20
+    auto q = lower_bound(vect.begin(), vect.end(), 20);
+    // Returns the last occurrence of 20
+    auto p = upper_bound(vect.begin(), vect.end(), 20);
+ 
+    cout << "The lower bound is at position: ";
+    cout << q-vect.begin() << endl;
+ 
+    cout << "The upper bound is at position: ";
+    cout << p-vect.begin() << endl;
+    
+    cout << "delete 10 element" << endl;
+    vect.erase(find(vect.begin(),vect.end(),10));
+    cout << "After deleting 10" << endl;
+    for (int i = 0; i < vect.size(); i++)
+        cout << vect[i] << " ";
+    
+    vect.erase(unique(vect.begin(),vect.end()),vect.end());
+    cout << "\nVector after removing duplicates:\n";
+    for (int i = 0; i < vect.size(); i++)
+        cout << vect[i] << " ";
+}
+
+
+Array algorithms in C++ STL (all_of, any_of, none_of, copy_n and iota)
+https://www.geeksforgeeks.org/useful-array-algorithms-in-c-stl/
+
+std::partition in C++ STL
+https://www.geeksforgeeks.org/stdpartition-in-c-stl/
+
+
+VECTOR:
+-----------
+
+Vectors are the same as dynamic arrays with the ability to resize itself automatically when an element is inserted or deleted, with their storage being handled automatically by the container.
+ Vector elements are placed in contiguous storage so that they can be accessed and traversed using iterators. In vectors, data is inserted at the end. Inserting at the end takes 
+differential time, as sometimes the array may need to be extended. Removing the last element takes only constant time because no resizing happens. Inserting and erasing at the beginning or in the middle is linear in time.
+
+begin() – Returns an iterator pointing to the first element in the vector
+end() – Returns an iterator pointing to the theoretical element that follows the last element in the vector
+rbegin() – Returns a reverse iterator pointing to the last element in the vector (reverse beginning). It moves from last to first element
+rend() – Returns a reverse iterator pointing to the theoretical element preceding the first element in the vector (considered as reverse end)
+cbegin() – Returns a constant iterator pointing to the first element in the vector.
+cend() – Returns a constant iterator pointing to the theoretical element that follows the last element in the vector.
+crbegin() – Returns a constant reverse iterator pointing to the last element in the vector (reverse beginning). It moves from last to first element
+crend() – Returns a constant reverse iterator pointing to the theoretical element preceding the first element in the vector (considered as reverse end)
+
+Capacity
+
+size() – Returns the number of elements in the vector.
+max_size() – Returns the maximum number of elements that the vector can hold.
+capacity() – Returns the size of the storage space currently allocated to the vector expressed as number of elements.
+resize(n) – Resizes the container so that it contains ‘n’ elements.
+empty() – Returns whether the container is empty.
+shrink_to_fit() – Reduces the capacity of the container to fit its size and destroys all elements beyond the capacity.
+reserve() – Requests that the vector capacity be at least enough to contain n elements.
+
+Element access:
+
+reference operator [g] – Returns a reference to the element at position ‘g’ in the vector
+at(g) – Returns a reference to the element at position ‘g’ in the vector
+front() – Returns a reference to the first element in the vector
+back() – Returns a reference to the last element in the vector
+data() – Returns a direct pointer to the memory array used internally by the vector to store its owned elements.
+
+Modifiers: 
+
+assign() – It assigns new value to the vector elements by replacing old ones
+push_back() – It push the elements into a vector from the back
+pop_back() – It is used to pop or remove elements from a vector from the back.
+insert() – It inserts new elements before the element at the specified position
+erase() – It is used to remove elements from a container from the specified position or range.
+swap() – It is used to swap the contents of one vector with another vector of same type. Sizes may differ.
+clear() – It is used to remove all the elements of the vector container
+emplace() – It extends the container by inserting new element at position
+emplace_back() – It is used to insert a new element into the vector container, the new element is added to the end of the vector
+
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main(){
+    vector<int> g1;
+    for(int i=0; i<=5; i++){
+        g1.push_back(i);
+    }
+    
+    for(auto it=g1.begin(); it!= g1.end(); it++){
+        cout << *it << " ";
+    }
+    cout << endl;
+    cout << "Size : " << g1.size();
+    cout << "\nCapacity : " << g1.capacity();
+    cout << "\nMax_Size : " << g1.max_size();
+    // resizes the vector size to 4
+    g1.resize(4);
+ 
+    // prints the vector size after resize()
+    cout << "\nSize : " << g1.size();
+ 
+    // checks if the vector is empty or not
+    if (g1.empty() == false)
+        cout << "\nVector is not empty";
+    else
+        cout << "\nVector is empty";
+        
+    cout << "\nReference operator [g] : g1[2] = " << g1[2];
+ 
+    cout << "\nat : g1.at(3) = " << g1.at(3);
+ 
+    cout << "\nfront() : g1.front() = " << g1.front();
+ 
+    cout << "\nback() : g1.back() = " << g1.back();
+    
+    // pointer to the first element
+    int* pos = g1.data();
+ 
+    cout << "\nThe first element is " << *pos;
+    
+    vector<int> v;
+    v.assign(5,10);
+    cout << "The vector elements are: ";
+    for (int i = 0; i < v.size(); i++)
+        cout << v[i] << " ";
+    // inserts 15 to the last position
+    v.push_back(15);
+    int n = v.size();
+    cout << "\nThe last element is: " << v[n - 1];
+ 
+    // removes last element
+    v.pop_back();
+    // prints the vector
+    cout << "\nThe vector elements are: ";
+    for (int i = 0; i < v.size(); i++)
+        cout << v[i] << " ";
+    // inserts 5 at the beginning
+    v.insert(v.begin(), 5);
+    cout << "\nThe first element is: " << v[0];
+ 
+    // removes the first element
+    v.erase(v.begin());
+ 
+    cout << "\nThe first element is: " << v[0];
+    // inserts at the beginning
+    v.emplace(v.begin(), 5);
+    cout << "\nThe first element is: " << v[0];
+ 
+    // Inserts 20 at the end
+    v.emplace_back(20);
+    n = v.size();
+    cout << "\nThe last element is: " << v[n - 1];
+ 
+    // erases the vector
+    v.clear();
+    cout << "\nVector size after erase(): " << v.size();
+}
+
+
+Array class in C++
+---------------------
+
+The introduction of array class from C++11 has offered a better alternative for C-style arrays. The advantages of array class over C-style array are :- 
+ 
+
+Array classes knows its own size, whereas C-style arrays lack this property. So when passing to functions, we don’t need to pass size of Array as a separate parameter.
+With C-style array there is more risk of array being decayed into a pointer. Array classes don’t decay into pointers
+Array classes are generally more efficient, light-weight and reliable than C-style arrays.
+
+
+
+List in C++ Standard Template Library (STL):
+---------------------------------------------------
+
+Lists are sequence containers that allow non-contiguous memory allocation. As compared to vector, the list has slow traversal, 
+but once a position has been found, insertion and deletion are quick. Normally, when we say a List, we talk about a doubly linked list. 
+For implementing a singly linked list, we use a forward list.
+
+Functions Used with List
+
+=> front()			Returns the value of the first element in the list.
+=> back()			Returns the value of the last element in the list.
+=> push_front(g)		Adds a new element ‘g’ at the beginning of the list.
+=> push_back(g) 		Adds a new element ‘g’ at the end of the list.
+=> pop_front()			Removes the first element of the list, and reduces size of the list by 1.
+=> pop_back()			Removes the last element of the list, and reduces size of the list by 1.
+=> list::begin()		begin() function returns an iterator pointing to the first element of the list.
+=> list::end()			end() function returns an iterator pointing to the theoretical last element which follows the last element.
+=> list rbegin() and rend()	rbegin() returns a reverse iterator which points to the last element of the list. rend() returns a reverse iterator which points to the position before the beginning of the list.
+=> list cbegin() and cend() 	cbegin() returns a constant random access iterator which points to the beginning of the list. cend() returns a constant random access iterator which points to the end of the list.
+=> list crbegin() and crend() 	crbegin() returns a constant reverse iterator which points to the last element of the list i.e reversed beginning of container. crend() returns a constant reverse iterator which points to the theoretical element preceding the first element in the list i.e. the reverse end of the list.
+=> empty() 			Returns whether the list is empty(1) or not(0).
+=> insert()			Inserts new elements in the list before the element at a specified position.
+=> erase()			Removes a single element or a range of elements from the list.
+=> assign()			Assigns new elements to list by replacing current elements and resizes the list.
+=> remove()			Removes all the elements from the list, which are equal to given element.
+=> list::remove_if()		Used to remove all the values from the list that correspond true to the predicate or condition given as parameter to the function.
+=> reverse()			Reverses the list.
+=> size()			Returns the number of elements in the list.
+=> list resize()		Used to resize a list container.
+=> sort()			Sorts the list in increasing order.
+=> list max_size() 		Returns the maximum number of elements a list container can hold.
+=> list unique()		Removes all duplicate consecutive elements from the list.
+=> list::emplace_front() 
+and list::emplace_back()	emplace_front() function is used to insert a new element into the list container, the new element is added to the beginning of the list. emplace_back() function is used to insert a new element into the list container, the new element is added to the end of the list.
+=> list::clear()		clear() function is used to remove all the elements of the list container, thus making it size 0.
+=> list::operator=		This operator is used to assign new contents to the container by replacing the existing contents.
+=> list::swap()			This function is used to swap the contents of one list with another list of same type and size.
+=> list splice()		Used to transfer elements from one list to another.
+=> list merge()			Merges two sorted lists into one.
+=> list emplace()		Extends list by inserting new element at a given position.
+
+===============================================================================================================================================================================================================================================================================
+
+
+Heap in C++ STL | make_heap(), push_heap(), pop_heap(), sort_heap(), is_heap, is_heap_until():
+-------------------------------------------------------------------------------------------------
+
+Heap data structure can be implemented in a range using STL which allows faster input into heap and retrieval of a number always results in the largest number i.e. largest number of the remaining numbers is popped out each time. Other numbers of the heap are arranged depending upon the implementation.
+
+Operations on heap :
+
+1. make_heap() :- This function is used to convert a range in a container to a heap.
+
+2. front() :- This function displays the first element of heap which is the maximum number.
+3. push_heap() :- This function is used to insert elements into heap. The size of the heap is increased by 1. New element is placed appropriately in the heap.
+
+4. pop_heap() :- This function is used to delete the maximum element of the heap. The size of heap is decreased by 1. The heap elements are reorganised accordingly after this operation.
+
+5. sort_heap() :- This function is used to sort the heap. After this operation, the container is no longer a heap.
+
+6. is_heap() :- This function is used to check whether the container is heap or not. Generally, in most implementations, the reverse sorted container is considered as heap. Returns true if container is heap else returns false.
+
+7. is_heap_until() :- This function returns the iterator to the position till the container is the heap. Generally, in most implementations, the reverse sorted container is considered as heap.
+
+
+
+
+
+
+
+
+
+
+Deque in C++ Standard Template Library (STL)
+=============================================
+
+Double-ended queues are sequence containers with the feature of expansion and contraction on both ends. They are similar to vectors, but are more efficient in case of insertion and deletion of elements. Unlike vectors, contiguous storage allocation may not be guaranteed. 
+Double Ended Queues are basically an implementation of the data structure double-ended queue. A queue data structure allows insertion only at the end and deletion from the front. This is like a queue in real life, wherein people are removed from the front and added at the back. Double-ended queues are a special case of queues where insertion and deletion operations are possible at both the ends.
+The functions for deque are same as vector, with an addition of push and pop operations for both front and back.  
+
+The time complexities for doing various operations on deques are-
+
+Accessing Elements- O(1)
+Insertion or removal of elements- O(N)
+Insertion or removal of elements at start or end- O(1)
+
+Methods of Deque
+
+=> deque::insert()	Inserts an element. And returns an iterator that points to the first of the newly inserted elements.
+=> deque::rbegin()	Returns a reverse iterator which points to the last element of the deque (i.e., its reverse beginning).
+=> deque::rend()	Returns a reverse iterator which points to the position before the beginning of the deque (which is considered its reverse end).
+=> deque::cbegin()	Returns a constant iterator pointing to the first element of the container, that is, the iterator cannot be used to modify, only traverse the deque.
+=> deque::max_size()	Returns the maximum number of elements that a deque container can hold.
+=> deque::assign()	Assign values to the same or different deque container.
+=> deque::resize() 	Function which changes the size of the deque.
+=> deque::push_front()	It is used to push elements into a deque from the front.
+=> deque::push_back() 	This function is used to push elements into a deque from the back.
+=> deque::pop_front() 
+and deque::pop_back()	pop_front() function is used to pop or remove elements from a deque from the front. pop_back() function is used to pop or remove elements from a deque from the back.
+=> deque::front() 
+and deque::back()	front() function is used to reference the first element of the deque container. back() function is used to reference the last element of the deque container.
+=> deque::clear() 
+and deque::erase() 	clear() function is used to remove all the elements of the deque container, thus making its size 0. erase() function is used to remove elements from a container from the specified position or range.
+=> deque::empty() 
+and deque::size()	empty() function is used to check if the deque container is empty or not. size() function is used to return the size of the deque container or the number of elements in the deque container.
+=> deque::operator= 
+and deque::operator[]	operator= operator is used to assign new contents to the container by replacing the existing contents. operator[] operator is used to reference the element present at position given inside the operator.
+=> deque::at() 
+and deque::swap()	at() function is used reference the element present at the position given as the parameter to the function. swap() function is used to swap the contents of one deque with another deque of same type and size.
+=> deque::begin() 
+and deque::end 		begin() function is used to return an iterator pointing to the first element of the deque container. end() function is used to return an iterator pointing to the last element of the deque container.
+=> deque::emplace_front() 
+and deque::emplace_back() 	emplace_front() function is used to insert a new element into the deque container. The new element is added to the beginning of the deque. emplace_back() function is used to insert a new element into the deque container. The new element is added to the end of the deque.
+
+
+Queue in C++ Standard Template Library (STL)
+==============================================
+
+=> queue::empty()		Returns whether the queue is empty. It return true if the queue is empty otherwise returns false.
+=> queue::size()		Returns the size of the queue.
+=> queue::swap()		Exchange the contents of two queues but the queues must be of the same data type, although sizes may differ.
+=> queue::emplace()	Insert a new element into the queue container, the new element is added to the end of the queue.
+=> queue::front()		Returns a reference to the first element of the queue.
+=> queue::back()		Returns a reference to the last element of the queue.
+=> queue::push(g) 		Adds the element ‘g’ at the end of the queue.
+=> queue::pop() 		Deletes the first element of the queue.
+
+
+Priority Queue in C++ Standard Template Library (STL)
+======================================================
+
+Priority queues are a type of container adapters, specifically designed such that the first element of the queue is either the greatest or the smallest of all elements in the 
+queue and elements are in nonincreasing order (hence we can see that each element of the queue has a priority {fixed order}). However in C++ STL, by default, the top element 
+is always the greatest element. We can also change it to the smallest element at the top. Priority queues are built on the top to the max heap and uses array or vector as an 
+internal structure.
+
+How to create a min-heap for the priority queue? 
+We can pass another parameter while creating the priority queue to make it a min heap. C++ provides the below syntax for the same.  
+
+Syntax:
+
+	priority_queue <int, vector<int>, greater<int>> g;  
+
+Note: The above syntax may be difficult to remember, so in case of numeric values, we can multiply the values with -1 and use max heap to get the effect of min heap.
+
+=> priority_queue::empty()		Returns whether the queue is empty.
+=> priority_queue::size() 		Returns the size of the queue.
+=> priority_queue::top()		Returns a reference to the topmost element of the queue.
+=> priority_queue::push() 		Adds the element ‘g’ at the end of the queue.
+=> priority_queue::pop()		Deletes the first element of the queue.
+=> priority_queue::swap()		Used to swap the contents of two queues provided the queues must be of the same type, although sizes may differ.
+=> priority_queue::emplace()	Used to insert a new element into the priority queue container.
+=> priority_queue value_type 	Represents the type of object stored as an element in a priority_queue. It acts as a synonym for the template parameter.
+
+
+STACK:
+=======
+
+The functions associated with stack are: 
+empty() – Returns whether the stack is empty – Time Complexity : O(1) 
+size() – Returns the size of the stack – Time Complexity : O(1) 
+top() – Returns a reference to the top most element of the stack – Time Complexity : O(1) 
+push(g) – Adds the element ‘g’ at the top of the stack – Time Complexity : O(1) 
+pop() – Deletes the top most element of the stack – Time Complexity : O(1) 
+	
+
+Set in C++ Standard Template Library (STL):
+==============================================
+
+Sets are a type of associative container in which each element has to be unique because the value of the element identifies it. 
+The values are stored in a specific sorted order i.e. either ascending or descending.
+
+Syntax:
+	set<datatype> setname;
+
+set<int> val; // defining an empty set
+set<int> val = {6, 10, 5, 1}; // defining a set with values
+
+Note: set<datatype, greater<datatype>> setname; is used for storing values in a set in descending order.
+
+Properties:
+Storing order – The set stores the elements in sorted order.
+Values Characteristics – All the elements in a set have unique values.
+Values Nature – The value of the element cannot be modified once it is added to the set, though it is possible to remove and then add the modified value of that element. Thus, the values are immutable.
+Search Technique – Sets follow the Binary search tree implementation.
+Arranging order – The values in a set are unindexed.
+
+Note: To store the elements in an unsorted(random) order,  unordered_set() can be used.
+
+Some Basic Functions Associated with Set: 
+
+begin() – Returns an iterator to the first element in the set.
+end() – Returns an iterator to the theoretical element that follows the last element in the set.
+size() – Returns the number of elements in the set.
+max_size() – Returns the maximum number of elements that the set can hold.
+empty() – Returns whether the set is empty.
+The time complexities for doing various operations on sets are:
+
+Insertion of Elements – O(log N)
+Deletion of Elements – O(log N)
+
+Different Function of Set in C++ STL:
+======================================
+
+=> begin()			Returns an iterator to the first element in the set.
+=> end()			Returns an iterator to the theoretical element that follows the last element in the set.
+=> rbegin()		Returns a reverse iterator pointing to the last element in the container.
+=> rend()			Returns a reverse iterator pointing to the theoretical element right before the first element in the set container.
+=> crbegin()		Returns a constant iterator pointing to the last element in the container.
+=> crend()			Returns a constant iterator pointing to the position just before the first element in the container.
+=> cbegin()		Returns a constant iterator pointing to the first element in the container.
+=> cend()			Returns a constant iterator pointing to the position past the last element in the container.
+=> size()			Returns the number of elements in the set.
+=> max_size()		Returns the maximum number of elements that the set can hold.
+=> empty()			Returns whether the set is empty.
+=> insert(const g) 	Adds a new element ‘g’ to the set.
+=> iterator insert (iterator position, const g)	Adds a new element ‘g’ at the position pointed by the iterator.
+=> erase(iterator position) 	Removes the element at the position pointed by the iterator.
+=> erase(const g)		Removes the value ‘g’ from the set.
+=> clear() 		Removes all the elements from the set.
+=> key_comp() / value_comp()	Returns the object that determines how the elements in the set are ordered (‘<‘ by default).
+=> find(const g)		Returns an iterator to the element ‘g’ in the set if found, else returns the iterator to end.
+=> count(const g)		Returns 1 or 0 based on whether the element ‘g’ is present in the set or not.
+=> lower_bound(const g)	Returns an iterator to the first element that is equivalent to ‘g’ or definitely will not go before the element ‘g’ in the set.
+=> upper_bound(const g)	Returns an iterator to the first element that will go after the element ‘g’ in the set.
+=> equal_range()		The function returns an iterator of pairs. (key_comp). The pair refers to the range that includes all the elements in the container which have a key equivalent to k.
+=> emplace()		This function is used to insert a new element into the set container, only if the element to be inserted is unique and does not already exist in the set.
+=> emplace_hint()		Returns an iterator pointing to the position where the insertion is done. If the element passed in the parameter already exists, then it returns an iterator pointing to the position where the existing element is.
+=> swap()			This function is used to exchange the contents of two sets but the sets must be of the same type, although sizes may differ.
+=> operator=		The ‘=’ is an operator in C++ STL that copies (or moves) a set to another set and set::operator= is the corresponding operator function.
+=> get_allocator()		Returns the copy of the allocator object associated with the set.
+
+
+Difference between Set and Unordered Set:
+
+Set
+=> Set stores elements in a sorted order	
+=> Set stores/acquire unique elements only	Unordered 
+=> Set uses Binary Search Trees for implementation	
+=> More than one element can be erased by giving the starting and ending iterator	
+=> set<datatype> Set_Name;	
+
+Unordered Set
+
+=> Unordered Set stores elements in an unsorted order
+=> Set stores/acquire only unique values
+=> Unordered Set uses Hash Tables for implementation
+=> We can erase that element for which the iterator position is given
+=> unordered_set<datatype> UnorderedSet_Name;
+
+
+Map in C++ Standard Template Library (STL):
+=============================================
+
+Maps are associative containers that store elements in a mapped fashion. Each element has a key value and a mapped value. No two mapped values can have the same key values.
+Some basic functions associated with Map: 
+
+=> begin() – Returns an iterator to the first element in the map.
+=> end() – Returns an iterator to the theoretical element that follows the last element in the map.
+=> size() – Returns the number of elements in the map.
+=> max_size() – Returns the maximum number of elements that the map can hold.
+=> empty() – Returns whether the map is empty.
+=> pair insert(keyvalue, mapvalue) – Adds a new element to the map.
+=> erase(iterator position) – Removes the element at the position pointed by the iterator.
+=> erase(const g)– Removes the key-value ‘g’ from the map.
+=> clear() – Removes all the elements from the map.
+
+List of all Functions of Map 
+
+=> map::insert()			Insert elements with a particular key in the map container –> O(log n)
+=> map:: count()			Returns the number of matches to element with key-value ‘g’ in the map. –> O(log n)
+=> map equal_range()		Returns an iterator of pairs. The pair refers to the bounds of a range that includes all the elements in the container which have a key equivalent to k.
+=> map erase()			Used to erase elements from the container –> O(log n)
+=> map rend()			Returns a reverse iterator pointing to the theoretical element right before the first key-value pair in the map(which is considered its reverse end).
+=> map rbegin() 			Returns a reverse iterator which points to the last element of the map.
+=> map find()			Returns an iterator to the element with key-value ‘g’ in the map if found, else returns the iterator to end.
+=> map crbegin() and crend() 	crbegin() returns a constant reverse iterator referring to the last element in the map container. crend() returns a constant reverse iterator pointing to the theoretical element before the first element in the map.
+=> map cbegin() and cend()	 	cbegin() returns a constant iterator referring to the first element in the map container. cend() returns a constant iterator pointing to the theoretical element that follows the last element in the multimap.
+=> map emplace()			Inserts the key and its element in the map container.
+=> map max_size() 			Returns the maximum number of elements a map container can hold –> O(1)
+=> map upper_bound()		Returns an iterator to the first element that is equivalent to mapped value with key-value ‘g’ or definitely will go after the element with key-value ‘g’ in the map
+=> map operator=			Assigns contents of a container to a different container, replacing its current content.
+=> map lower_bound()		Returns an iterator to the first element that is equivalent to the mapped value with key-value ‘g’ or definitely will not go before the element with key-value ‘g’ in the map –> O(log n)
+=> map emplace_hint()		Inserts the key and its element in the map container with a given hint.
+=> map value_comp() 		Returns the object that determines how the elements in the map are ordered (‘<‘ by default).
+=> map key_comp() 			Returns the object that determines how the elements in the map are ordered (‘<‘ by default).
+=> map::size()			Returns the number of elements in the map.
+=> map::empty()			Returns whether the map is empty
+=> map::begin() and end()		begin() returns an iterator to the first element in the map. end() returns an iterator to the theoretical element that follows the last element in the map
+=> map::operator[]			This operator is used to reference the element present at the position given inside the operator.
+=> map::clear() 			Removes all the elements from the map.
+=> map::at() and map::swap()	at() function is used to return the reference to the element associated with the key k. swap() function is used to exchange the contents of two maps but the maps must be of the same type, although sizes may differ.
+
+
+Pair in C++ Standard Template Library (STL):
+================================================
+
+Pair is used to combine together two values that may be of different data types. Pair provides a way to store two heterogeneous objects as a single unit. 
+It is basically used if we want to store tuples. The pair container is a simple container defined in <utility> header consisting of two data elements or objects.
+
+=> The first element is referenced as ‘first’ and the second element as ‘second’ and the order is fixed (first, second).
+=> Pair can be assigned, copied, and compared. The array of objects allocated in a map or hash_map is of type ‘pair’ by default in which all the ‘first’ elements are unique keys associated with their ‘second’ value objects.
+=> To access the elements, we use variable name followed by dot operator followed by the keyword first or second. 
+
+Syntax: 
+	pair <data_type1, data_type2> Pair_name
+
+Initializing a Pair: We can also initialize a pair. 
+	pair (data_type1, data_type2) Pair_name (value1, value2) ;
+
+Different ways to initialize pair:  
+pair  g1;         //default
+pair  g2(1, 'a');  //initialized,  different data type
+pair  g3(1, 10);   //initialized,  same data type
+pair  g4(g3);    //copy of g3
+
+Another way to initialize a pair is by using the make_pair() function. 
+	g2 = make_pair(1, 'a');
+Another valid syntax to declare pair is:
+	g2 = {1, 'a'};
+
+
+===================================================================================================================================================================================================================================================================
+
+STRING STREAME:
+===============
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================================================================================================================
+MOVE SEMANTICS:
+-------------------
+
+https://coderslegacy.com/c/move-semantics-cpp/
+
+https://iamsorush.com/posts/perfect-forwarding-cpp/#:~:text=An%20overview%20of%20C%2B%2B%20perfect%20forwarding%201%20Intro,7%20Details%20...%208%20References%20...%20More%20items
+
+===================================================================================================================================================================================================
+MULTITHREADING:
+----------------------
+
+https://thispointer.com/c11-tutorial/
+
+==============================================================================================================================================================================================
+Design Patterns:
+----------------
+
+https://medium.com/must-know-computer-science/basic-design-patterns-in-c-39bd3d477a5c
+
+
+===============================================================================================================================================================================================
+
+OOPs real life examples:
+
+CLASS:
+======
+ A class is like a blueprint for an object. For Example: Consider the Class of Cars. There may be many cars with different names and brands but all of 
+them will share some common properties like all of them will have 4 wheels, Speed Limit, Mileage range, etc. So here, the Car is the class, and wheels, speed limits, 
+and mileage are their properties.
+
+Encapsulation:
+================
+Consider a real-life example of encapsulation, in a company, there are different sections like the accounts section, finance section, sales section, etc.
+ The finance section handles all the financial transactions and keeps records of all the data related to finance. Similarly, the sales section handles all 
+the sales-related activities and keeps records of all the sales. Now there may arise a situation when for some reason an official from the finance section
+ needs all the data about sales in a particular month. In this case, he is not allowed to directly access the data of the sales section. He will first have 
+to contact some other officer in the sales section and then request him to give the particular data. This is what encapsulation is. Here the data of the sales 
+section and the employees that can manipulate them are wrapped under a single name “sales section”.
+
+Abstraction
+============
+Consider a real-life example of a man driving a car. The man only knows that pressing the accelerator will increase the speed of the car or applying brakes will 
+stop the car but he does not know how on pressing the accelerator the speed is actually increasing, he does not know about the inner mechanism of the car or the 
+implementation of an accelerator, brakes, etc. in the car. This is what abstraction is.
+
+Polymorphism:
+==============
+A person at the same time can have different characteristics. A man at the same time is a father, a husband, and an employee. So the same person possesses 
+different behavior in different situations. This is called polymorphism
+
+How does Function Overloading work?
+Exact match:- (Function name and Parameter)
+If a not exact match is found:–
+               ->Char, Unsigned char, and short are promoted to an int.
+
+               ->Float is promoted to double
+
+If no match is found:
+               ->C++ tries to find a match through the standard conversion.
+
+ELSE ERROR 🙁
