@@ -7,7 +7,7 @@
  * alternative to constructor and lets clients access the same instance of this
  * class over and over.
  */
-class Singleton
+class Singleton final
 {
 
     /**
@@ -18,7 +18,7 @@ class Singleton
 private:
     static Singleton* singleton_;
     
-protected:
+private:
     Singleton(const std::string value) : value_(value)
     {
     }

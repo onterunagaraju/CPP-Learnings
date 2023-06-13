@@ -6,13 +6,13 @@
 * class overand over.
 */
 
-class Singleton 
+class Singleton final
 {
     /**
      * The Singleton's constructor should always be private to prevent direct
      * construction calls with the `new` operator.
      */
-protected:
+private:
     Singleton(const std::string& value): value_(value){}
     static Singleton* singleton_;
     std::string value_;
