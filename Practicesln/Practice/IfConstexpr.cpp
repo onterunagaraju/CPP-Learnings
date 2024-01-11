@@ -16,15 +16,15 @@ void print_value(const T& value) {
     }
 }
 
-int main() {
-    int x = 42;
-    float y = 3.14;
-    double z = 2.718;
-  
-    print_value(x);
-    print_value(y);
-    //print_value(z); // This line will cause a static assertion error at compile-time
-    std::string s = "Hello";
-    //std::string_view str = s.substr(0, 4);
-    return 0;
-}
+//int main() {
+//    int x = 42;
+//    float y = 3.14;
+//    double z = 2.718;
+//  
+//    print_value(x);
+//    print_value(y);
+//    //print_value(z); // This line will cause a static assertion error at compile-time
+//    std::string s = "Hello";
+//    //std::string_view str = s.substr(0, 4);
+//    return 0;
+//}

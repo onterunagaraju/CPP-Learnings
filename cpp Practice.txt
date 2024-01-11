@@ -2211,6 +2211,8 @@ Design Patterns:
 ----------------
 
 https://medium.com/must-know-computer-science/basic-design-patterns-in-c-39bd3d477a5c
+===================================================================================================================================
+latest features of c++(versions) : https://github.com/AnthonyCalandra/modern-cpp-features
 
 
 ===============================================================================================================================================================================================
@@ -2254,3 +2256,27 @@ If no match is found:
                ->C++ tries to find a match through the standard conversion.
 
 ELSE ERROR 🙁
+
+============================================================================================================================================================================================
+C++20  constinit:
+
+constinit is a new keyword introduced in C++20. It is used to specify that a variable must be initialized during static initialization and remain constant throughout its lifetime.
+ The purpose of constinit is to provide a guarantee of compile-time initialization for global and static variables.
+
+Here's an example that demonstrates the usage of constinit:
+constinit int x = 10;
+
+int main() {
+    // Accessing the value of x
+    int result = x + 5;
+    return 0;
+}
+
+In this code snippet, x is declared as a constinit variable and assigned the value 10. This means that x must be initialized at compile-time, and it will have a constant value during the program's execution.
+ The constinit specifier ensures that x is not subject to dynamic initialization or destruction.
+
+It's important to note that the constinit specifier has some restrictions. It can only be applied to variables that have static storage duration, such as global variables, namespace-scope variables, and static class members.
+ It cannot be used with local variables or function parameters.
+
+The use of constinit can be beneficial in scenarios where you want to ensure compile-time initialization and avoid potential issues related to dynamic initialization, such as the static initialization order fiasco. 
+However, it's crucial to use constinit judiciously and consider the specific requirements and constraints of your codebase.

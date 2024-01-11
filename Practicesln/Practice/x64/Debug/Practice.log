@@ -1,5 +1,5 @@
 ﻿  IfConstexpr.cpp
-C:\Users\Nagaraju_Onteru\Desktop\C++\Practicesln\Practice\IfConstexpr.cpp(8,5): warning C4984: 'if constexpr' is a C++17 language extension
-C:\Users\Nagaraju_Onteru\Desktop\C++\Practicesln\Practice\IfConstexpr.cpp(11,10): warning C4984: 'if constexpr' is a C++17 language extension
-C:\Users\Nagaraju_Onteru\Desktop\C++\Practicesln\Practice\IfConstexpr.cpp(21,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Practice.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\C++\Practicesln\x64\Debug\Practice.exe
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.37.32822\include\string_view(13): warning STL4038: The contents of <string_view> are available only with C++17 or later.
+C:\Users\Nagaraju_Onteru\Desktop\C++Learnings\Practicesln\Practice\IfConstexpr.cpp(8,5): warning C4984: 'if constexpr' is a C++17 language extension
+C:\Users\Nagaraju_Onteru\Desktop\C++Learnings\Practicesln\Practice\IfConstexpr.cpp(11,10): warning C4984: 'if constexpr' is a C++17 language extension
+  Practice.vcxproj -> C:\Users\Nagaraju_Onteru\Desktop\C++Learnings\Practicesln\x64\Debug\Practice.exe
